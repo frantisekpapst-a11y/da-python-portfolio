@@ -4024,6 +4024,125 @@ binární data
 
 ---
 
+## `requests.Session()` — opakovaná komunikace s API / webem
+
+Při opakovaných HTTP požadavcích na stejný web lze místo samostatného `requests.get()` použít `requests.Session()`.
+
+```python
+import requests
+
+session = requests.Session()
+```
+
+Session umožňuje sdílet společné nastavení mezi více requesty, například:
+
+- HTTP headers;
+- cookies;
+- některé parametry spojení.
+
+Místo:
+
+```python
+response = requests.get(
+    url,
+    timeout=30
+)
+```
+
+lze použít:
+
+```python
+response = session.get(
+    url,
+    timeout=30
+)
+```
+
+Princip:
+
+```text
+requests.get()
+→ jeden samostatný request
+
+requests.Session()
+→ společné nastavení pro více requestů
+```
+
+### Společné HTTP headers
+
+Headers lze nastavit jednou pro celou session:
+
+```python
+session.headers.update(
+    {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "application/json, text/plain, */*",
+        "Referer": "https://www.example.com/",
+    }
+)
+```
+
+Potom se stejné headers automaticky používají při dalších requestech přes tuto session:
+
+```python
+response = session.get(
+    url,
+    timeout=30
+)
+```
+
+Zjednodušeně:
+
+```text
+session
+→ společné nastavení
+
+session.get(...)
+→ request se stejným nastavením
+```
+
+### Kdy je `Session()` užitečná
+
+Typicky když:
+
+- voláme více endpointů stejného webu;
+- chceme používat stejné headers;
+- server pracuje s cookies nebo session stavem;
+- nechceme stejné nastavení opakovat u každého requestu.
+
+### Praktický příklad
+
+```python
+session = requests.Session()
+
+session.headers.update(
+    {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/140.0 Safari/537.36"
+        ),
+        "Accept": "application/json, text/plain, */*",
+        "Referer": "https://www.example.com/",
+    }
+)
+
+for url in urls:
+
+    response = session.get(
+        url,
+        timeout=30
+    )
+
+    print(response.status_code)
+```
+
+Důležité:
+
+> `Session()` sama o sobě není jiný typ HTTP požadavku. Stále používáme například `GET`, jen ho posíláme přes objekt, který si drží společné nastavení mezi requesty.
+
+---
+
 ## JSON odpověď
 
 ```python

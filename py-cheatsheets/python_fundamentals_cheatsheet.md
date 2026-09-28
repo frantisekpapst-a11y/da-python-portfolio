@@ -1,2434 +1,3343 @@
-# Python Fundamentals Cheatsheet
+**# Python Fundamentals Cheatsheet**
 
 Praktický tahák z mého studia základů Pythonu.
 
----
+\---
 
-## Rychlá orientace
+**## Rychlá orientace**
 
-### Závorky v Pythonu
+**### Závorky v Pythonu**
 
-| Závorky | Typické použití | Příklad |
-| --- | --- | --- |
-| `( )` | volání funkce nebo metody | `print(name)`, `len(sales)`, `calculate_average(salaries)` |
-| `[ ]` | list nebo přístup pomocí indexu/klíče | `[1, 2, 3]`, `employee["name"]` |
-| `{ }` | vytvoření dictionary | `{"name": "Petr", "salary": 50000}` |
+\| Závorky | Typické použití | Příklad |
+
+\| --- | --- | --- |
+
+\| \`( )\` | volání funkce nebo metody | \`print(name)\`, \`len(sales)\`, \`calculate_average(salaries)\` |
+
+\| \`[ ]\` | list nebo přístup pomocí indexu/klíče | \`[1, 2, 3]\`, \`employee["name"]\` |
+
+\| \`{ }\` | vytvoření dictionary | \`{"name": "Petr", "salary": 50000}\` |
 
 Důležité:
 
-```python
+\`\`\`python
+
 employee = {
-    "name": "Petr",
-    "salary": 50000
+
+    "name": "Petr",
+
+    "salary": 50000
+
 }
-```
 
-Dictionary se **vytváří pomocí `{}`**, ale k jeho konkrétní hodnotě přistupujeme pomocí **`[]`**:
+\`\`\`
 
-```python
+Dictionary se **\*\*vytváří pomocí \`{}\`\*\***, ale k jeho konkrétní hodnotě přistupujeme pomocí **\*\*\`[]\`\*\***:
+
+\`\`\`python
+
 employee["name"]
+
 employee["salary"]
-```
 
-Metody a funkce používají `()`:
+\`\`\`
 
-```python
+Metody a funkce používají \`()\`:
+
+\`\`\`python
+
 print(employee)
-employee.keys()
-employee.pop("salary")
-calculate_average(salaries)
-```
 
-### Funkce — rychlá orientace
+employee.keys()
+
+employee.pop("salary")
+
+calculate_average(salaries)
+
+\`\`\`
+
+**### Funkce — rychlá orientace**
 
 Tři důležité věci:
 
-```text
-()       → zavolej / spusť funkci
-return   → vrať výsledek z funkce
-print()  → zobraz hodnotu v terminálu
-```
+\`\`\`text
+
+()       → zavolej / spusť funkci
+
+return   → vrať výsledek z funkce
+
+print()  → zobraz hodnotu v terminálu
+
+\`\`\`
 
 Příklad:
 
-```python
+\`\`\`python
+
 def highest_salary(salaries):
-    highest = max(salaries)
-    return highest
+
+    highest = max(salaries)
+
+    return highest
 
 print(highest_salary(salaries))
-```
+
+\`\`\`
 
 Průběh:
 
-```text
+\`\`\`text
+
 highest_salary(salaries)
+
 ↓
+
 funkce se spustí
+
 ↓
+
 max(salaries)
+
 ↓
+
 return highest
+
 ↓
+
 výsledek se vrátí do print()
+
 ↓
+
 print() ho zobrazí
-```
+
+\`\`\`
 
 Samotné vytvoření funkce ji nespustí:
 
-```python
+\`\`\`python
+
 def welcome():
-    print("Welcome!")
-```
+
+    print("Welcome!")
+
+\`\`\`
 
 Funkci je nutné zavolat:
 
-```python
+\`\`\`python
+
 welcome()
-```
 
-### Kdy použít `print()` a kdy `return`
+\`\`\`
 
-`print()` použijeme, pokud chceme hodnotu pouze zobrazit:
+**### Kdy použít \`print()\` a kdy \`return\`**
 
-```python
+\`print()\` použijeme, pokud chceme hodnotu pouze zobrazit:
+
+\`\`\`python
+
 def welcome():
-    print("Welcome!")
-```
 
-`return` použijeme, pokud chceme výsledek dostat z funkce ven a dále s ním pracovat:
+    print("Welcome!")
 
-```python
+\`\`\`
+
+\`return\` použijeme, pokud chceme výsledek dostat z funkce ven a dále s ním pracovat:
+
+\`\`\`python
+
 def calculate_average(salaries):
-    average = sum(salaries) / len(salaries)
-    return average
+
+    average = sum(salaries) / len(salaries)
+
+    return average
 
 result = calculate_average(salaries)
-```
+
+\`\`\`
 
 Důležité:
 
-> `return` funkci nespouští. Funkci spouštíme jejím zavoláním pomocí `()`.
+\> \`return\` funkci nespouští. Funkci spouštíme jejím zavoláním pomocí \`()\`.
 
-### Práce se soubory — rychlá orientace
+**### Práce se soubory — rychlá orientace**
 
-```text
-open()       → otevře soubor
-read()       → načte obsah
-with open()  → bezpečně otevře a po skončení automaticky zavře
-"r"          → read / čtení
-"w"          → write / zápis
-```
+\`\`\`text
+
+open()       → otevře soubor
+
+read()       → načte obsah
+
+with open()  → bezpečně otevře a po skončení automaticky zavře
+
+"r"          → read / čtení
+
+"w"          → write / zápis
+
+\`\`\`
 
 Příklad čtení:
 
-```python
+\`\`\`python
+
 with open("employees.txt") as file:
-    content = file.read()
-```
+
+    content = file.read()
+
+\`\`\`
 
 Příklad zápisu:
 
-```python
+\`\`\`python
+
 with open("output.txt", "w") as file:
-    ...
-```
+
+    ...
+
+\`\`\`
 
 Důležité:
 
-> `with` zavře soubor, ale data načtená do proměnné zůstávají v paměti.
+\> \`with\` zavře soubor, ale data načtená do proměnné zůstávají v paměti.
 
-### CSV — rychlá orientace
+**### CSV — rychlá orientace**
 
-```python
+\`\`\`python
+
 import csv
-```
+
+\`\`\`
 
 Čtení jako listy:
 
-```python
+\`\`\`python
+
 with open("employees.csv") as file:
-    reader = csv.reader(file)
-```
+
+    reader = csv.reader(file)
+
+\`\`\`
 
 Čtení jako dictionaries:
 
-```python
+\`\`\`python
+
 with open("employees.csv") as file:
-    reader = csv.DictReader(file)
-```
+
+    reader = csv.DictReader(file)
+
+\`\`\`
 
 Zápis dictionaries:
 
-```python
+\`\`\`python
+
 writer = csv.DictWriter(
-    file,
-    fieldnames=["name", "department", "salary"]
+
+    file,
+
+    fieldnames=["name", "department", "salary"]
+
 )
-```
 
-### JSON — rychlá orientace
+\`\`\`
 
-```python
+**### JSON — rychlá orientace**
+
+\`\`\`python
+
 import json
-```
+
+\`\`\`
 
 Načtení:
 
-```python
+\`\`\`python
+
 with open("employees.json") as file:
-    employees = json.load(file)
-```
+
+    employees = json.load(file)
+
+\`\`\`
 
 Uložení:
 
-```python
+\`\`\`python
+
 with open("output.json", "w") as file:
-    json.dump(employees, file, indent=4)
-```
+
+    json.dump(employees, file, indent=4)
+
+\`\`\`
 
 Pomůcka:
 
-```text
-json.load()  → soubor → Python
-json.dump()  → Python → soubor
-```
+\`\`\`text
 
-### Dvojtečka `:`
+json.load()  → soubor → Python
+
+json.dump()  → Python → soubor
+
+\`\`\`
+
+**### Dvojtečka \`:\`**
 
 Dvojtečka se používá tam, kde začíná nový odsazený blok kódu:
 
-```python
+\`\`\`python
+
 def calculate_average(salaries):
-    ...
+
+    ...
 
 if salary > 50000:
-    ...
+
+    ...
 
 elif salary > 40000:
-    ...
+
+    ...
 
 else:
-    ...
+
+    ...
 
 for salary in salaries:
-    ...
+
+    ...
 
 with open("employees.txt") as file:
-    ...
-```
+
+    ...
+
+\`\`\`
 
 Pomůcka:
 
-> Pokud po řádku následuje odsazený blok kódu, často bude na konci řádku `:`.
+\> Pokud po řádku následuje odsazený blok kódu, často bude na konci řádku \`:\`.
 
-### Desetinná čísla
+**### Desetinná čísla**
 
-Python používá pro desetinná čísla **tečku**, ne čárku:
+Python používá pro desetinná čísla **\*\*tečku\*\***, ne čárku:
 
-```python
+\`\`\`python
+
 0.15
+
 1.1
+
 50000.50
-```
+
+\`\`\`
 
 Ne:
 
-```text
+\`\`\`text
+
 0,15
+
 1,1
-```
+
+\`\`\`
 
 Čárka má v Pythonu jiný význam, například odděluje argumenty:
 
-```python
+\`\`\`python
+
 round(value, 2)
-```
 
----
+\`\`\`
 
-### Základní principy
+\---
 
-- Python vykonává program postupně shora dolů.
-- `=` přiřazuje hodnotu.
-- `==` porovnává dvě hodnoty.
-- `!=` znamená nerovná se.
-- `>` a `<` znamenají větší a menší.
-- `>=` a `<=` zahrnují také rovnost.
-- Výsledkem porovnání je `True` nebo `False`.
-- Indexování začíná od `0`.
-- `list` ukládá více hodnot v určitém pořadí.
-- `dictionary` ukládá dvojice **klíč → hodnota**.
-- `for` postupně prochází data.
-- `if` rozhoduje, zda se má určitý blok kódu provést.
-- `elif` přidává další podmínku mezi `if` a `else`.
-- `append()` přidává hodnotu na konec listu.
-- `remove()` maže z listu podle hodnoty.
-- `pop()` může odstranit položku z listu nebo dictionary.
-- `sort()` mění původní list.
-- `sorted()` vytvoří nový seřazený list.
-- `range()` vytváří posloupnost čísel.
-- `enumerate()` poskytuje při průchodu index i hodnotu.
-- `def` vytváří vlastní funkci.
-- Funkce se spouští jejím zavoláním pomocí `()`.
-- Parametr je proměnná, kterou funkce používá pro přijatou hodnotu.
-- `return` vrací výsledek z funkce.
-- `print()` pouze zobrazuje hodnotu.
-- Funkce může volat jinou funkci.
-- `with open()` bezpečně pracuje se souborem a automaticky ho zavře.
-- Data načtená do proměnné zůstávají dostupná i po zavření souboru.
-- CSV je textový tabulkový formát.
-- JSON umí zachovat strukturu jako list, dictionary a číselné hodnoty.
-- Odsazení určuje strukturu programu.
+**### Základní principy**
 
----
+\- Python vykonává program postupně shora dolů.
 
-## 1. Výpis hodnoty — `print()`
+\- \`=\` přiřazuje hodnotu.
 
-```python
+\- \`==\` porovnává dvě hodnoty.
+
+\- \`!=\` znamená nerovná se.
+
+\- \`>\` a \`<\` znamenají větší a menší.
+
+\- \`>=\` a \`<=\` zahrnují také rovnost.
+
+\- Výsledkem porovnání je \`True\` nebo \`False\`.
+
+\- Indexování začíná od \`0\`.
+
+\- \`list\` ukládá více hodnot v určitém pořadí.
+
+\- \`dictionary\` ukládá dvojice **\*\*klíč → hodnota\*\***.
+
+\- \`for\` postupně prochází data.
+
+\- \`if\` rozhoduje, zda se má určitý blok kódu provést.
+
+\- \`elif\` přidává další podmínku mezi \`if\` a \`else\`.
+
+\- \`append()\` přidává hodnotu na konec listu.
+
+\- \`remove()\` maže z listu podle hodnoty.
+
+\- \`pop()\` může odstranit položku z listu nebo dictionary.
+
+\- \`sort()\` mění původní list.
+
+\- \`sorted()\` vytvoří nový seřazený list.
+
+\- \`range()\` vytváří posloupnost čísel.
+
+\- \`enumerate()\` poskytuje při průchodu index i hodnotu.
+
+\- \`def\` vytváří vlastní funkci.
+
+\- Funkce se spouští jejím zavoláním pomocí \`()\`.
+
+\- Parametr je proměnná, kterou funkce používá pro přijatou hodnotu.
+
+\- \`return\` vrací výsledek z funkce.
+
+\- \`print()\` pouze zobrazuje hodnotu.
+
+\- Funkce může volat jinou funkci.
+
+\- \`with open()\` bezpečně pracuje se souborem a automaticky ho zavře.
+
+\- Data načtená do proměnné zůstávají dostupná i po zavření souboru.
+
+\- CSV je textový tabulkový formát.
+
+\- JSON umí zachovat strukturu jako list, dictionary a číselné hodnoty.
+
+\- Odsazení určuje strukturu programu.
+
+\---
+
+**## 1. Výpis hodnoty — \`print()\`**
+
+\`\`\`python
+
 print("Ahoj, Pythone!")
+
 print(salary)
-```
 
-`print()` vypíše text nebo hodnotu proměnné.
+\`\`\`
 
----
+\`print()\` vypíše text nebo hodnotu proměnné.
 
-## 2. Proměnné
+\---
 
-```python
+**## 2. Proměnné**
+
+\`\`\`python
+
 name = "František"
+
 age = 45
+
 salary = 55500.5
+
 is_data_analyst = True
-```
+
+\`\`\`
 
 Python datový typ rozpozná podle přiřazené hodnoty.
 
 Hodnotu proměnné lze jednoduše změnit:
 
-```python
+\`\`\`python
+
 salary = 55500.5
+
 salary = 40000
-```
 
-Od druhého přiřazení má `salary` hodnotu `40000`.
+\`\`\`
 
----
+Od druhého přiřazení má \`salary\` hodnotu \`40000\`.
 
-## 3. Základní datové typy
+\---
 
-| Typ | Význam | Příklad |
-| --- | --- | --- |
-| `str` | text | `"Data Analyst"` |
-| `int` | celé číslo | `45` |
-| `float` | desetinné číslo | `55500.5` |
-| `bool` | pravda / nepravda | `True`, `False` |
-| `list` | seznam hodnot | `[42000, 50000]` |
-| `dict` | klíče a hodnoty | `{"name": "Petr"}` |
+**## 3. Základní datové typy**
 
----
+\| Typ | Význam | Příklad |
 
-## 4. Kontrola datového typu — `type()`
+\| --- | --- | --- |
 
-```python
+\| \`str\` | text | \`"Data Analyst"\` |
+
+\| \`int\` | celé číslo | \`45\` |
+
+\| \`float\` | desetinné číslo | \`55500.5\` |
+
+\| \`bool\` | pravda / nepravda | \`True\`, \`False\` |
+
+\| \`list\` | seznam hodnot | \`[42000, 50000]\` |
+
+\| \`dict\` | klíče a hodnoty | \`{"name": "Petr"}\` |
+
+\---
+
+**## 4. Kontrola datového typu — \`type()\`**
+
+\`\`\`python
+
 print(type(salary))
-```
+
+\`\`\`
 
 Například:
 
-```python
+\`\`\`python
+
 salary = 55500.5
+
 print(type(salary))
-```
+
+\`\`\`
 
 Výsledek:
 
-```text
-<class 'float'>
-```
+\`\`\`text
 
----
+\<class 'float'>
 
-## 5. Převod datových typů
+\`\`\`
+
+\---
+
+**## 5. Převod datových typů**
 
 Text na celé číslo:
 
-```python
+\`\`\`python
+
 age_text = "45"
+
 age_number = int(age_text)
-```
+
+\`\`\`
 
 Text na desetinné číslo:
 
-```python
+\`\`\`python
+
 salary_text = "55500.5"
+
 salary_number = float(salary_text)
-```
+
+\`\`\`
 
 Hodnotu můžeme převést také přímo a uložit zpět do stejné proměnné:
 
-```python
+\`\`\`python
+
 salary = "55500.5"
+
 salary = float(salary)
-```
+
+\`\`\`
 
 Další základní převody:
 
-```python
+\`\`\`python
+
 str()
+
 int()
+
 float()
+
 bool()
-```
+
+\`\`\`
 
 Pozor: ne každý text lze převést na číslo.
 
-```python
-int("45")         # funguje
-int("František")  # chyba
-```
+\`\`\`python
 
----
+int("45")         # funguje
 
-## 6. Výpočty
+int("František")  # chyba
 
-```python
+\`\`\`
+
+\---
+
+**## 6. Výpočty**
+
+\`\`\`python
+
 salary = 55500.5
+
 bonus = 4000
 
 total_salary = salary + bonus
-annual_salary = salary * 12
-annual_bonus = bonus * 12
+
+annual_salary = salary \* 12
+
+annual_bonus = bonus \* 12
+
 annual_income = annual_salary + annual_bonus
-```
+
+\`\`\`
 
 Základní operátory:
 
-| Operátor | Význam |
-| --- | --- |
-| `+` | sčítání |
-| `-` | odčítání |
-| `*` | násobení |
-| `/` | dělení |
+\| Operátor | Význam |
 
----
+\| --- | --- |
 
-## 7. Zaokrouhlení — `round()`
+\| \`+\` | sčítání |
 
-```python
-bonus_percentage = annual_bonus / annual_income * 100
+\| \`-\` | odčítání |
+
+\| \`\*\` | násobení |
+
+\| \`/\` | dělení |
+
+\---
+
+**## 7. Zaokrouhlení — \`round()\`**
+
+\`\`\`python
+
+bonus_percentage = annual_bonus / annual_income \* 100
+
 print(round(bonus_percentage, 2))
-```
 
-`2` znamená zaokrouhlení maximálně na dvě desetinná místa.
+\`\`\`
 
-`round()` neznamená, že Python vždy zobrazí dvě desetinná místa.
+\`2\` znamená zaokrouhlení maximálně na dvě desetinná místa.
 
-```python
-round(123.4567, 2)  # 123.46
-round(46200.0, 2)   # 46200.0
-```
+\`round()\` neznamená, že Python vždy zobrazí dvě desetinná místa.
 
----
+\`\`\`python
 
-## 8. Porovnávání
+round(123.4567, 2)  # 123.46
 
-```python
+round(46200.0, 2)   # 46200.0
+
+\`\`\`
+
+\---
+
+**## 8. Porovnávání**
+
+\`\`\`python
+
 salary > 50000
-salary < 50000
-salary == 55500.5
-salary <= 50000
-salary >= 50000
-salary != 50000
-```
 
-| Operátor | Význam |
-| --- | --- |
-| `>` | větší než |
-| `<` | menší než |
-| `>=` | větší nebo rovno |
-| `<=` | menší nebo rovno |
-| `==` | rovná se |
-| `!=` | nerovná se |
+salary < 50000
+
+salary == 55500.5
+
+salary <= 50000
+
+salary >= 50000
+
+salary != 50000
+
+\`\`\`
+
+\| Operátor | Význam |
+
+\| --- | --- |
+
+\| \`>\` | větší než |
+
+\| \`<\` | menší než |
+
+\| \`>=\` | větší nebo rovno |
+
+\| \`<=\` | menší nebo rovno |
+
+\| \`==\` | rovná se |
+
+\| \`!=\` | nerovná se |
 
 Výsledkem porovnání je:
 
-```python
+\`\`\`python
+
 True
+
 False
-```
+
+\`\`\`
 
 Pozor na rozdíl:
 
-```python
-salary = 50000   # přiřazení hodnoty
-salary == 50000  # porovnání hodnot
-```
+\`\`\`python
 
----
+salary = 50000   # přiřazení hodnoty
 
-## 9. Podmínky — `if` / `else`
+salary == 50000  # porovnání hodnot
 
-```python
+\`\`\`
+
+\---
+
+**## 9. Podmínky — \`if\` / \`else\`**
+
+\`\`\`python
+
 if salary > 50000:
-    print("Salary is above 50000")
+
+    print("Salary is above 50000")
+
 else:
-    print("Salary is 50000 or less")
-```
 
-`if` = pokud je podmínka `True`, proveď následující blok.
+    print("Salary is 50000 or less")
 
-`else` = co se má stát, pokud podmínka `True` není.
+\`\`\`
 
-### Odsazení je součást syntaxe Pythonu
+\`if\` = pokud je podmínka \`True\`, proveď následující blok.
 
-```python
+\`else\` = co se má stát, pokud podmínka \`True\` není.
+
+**### Odsazení je součást syntaxe Pythonu**
+
+\`\`\`python
+
 if salary > 50000:
-    print("Salary is above 50000")
-```
 
-Odsazený řádek patří pod `if`. Standardně se používají 4 mezery.
+    print("Salary is above 50000")
 
----
+\`\`\`
 
-## 10. List — seznam hodnot
+Odsazený řádek patří pod \`if\`. Standardně se používají 4 mezery.
+
+\---
+
+**## 10. List — seznam hodnot**
 
 List umožňuje uložit více hodnot do jedné proměnné.
 
-```python
+\`\`\`python
+
 salaries = [42000, 55500, 61000, 48000, 72500]
-```
+
+\`\`\`
 
 Datový typ:
 
-```python
+\`\`\`python
+
 print(type(salaries))
-```
+
+\`\`\`
 
 Výsledek:
 
-```text
-<class 'list'>
-```
+\`\`\`text
+
+\<class 'list'>
+
+\`\`\`
 
 List může obsahovat čísla, text i různé datové typy.
 
-```python
+\`\`\`python
+
 names = ["Petr", "Jana", "Eva"]
+
 employee = ["Petr", 45000, True]
-```
 
----
+\`\`\`
 
-## 11. Indexy v listu
+\---
 
-Python počítá indexy od `0`.
+**## 11. Indexy v listu**
 
-```python
+Python počítá indexy od \`0\`.
+
+\`\`\`python
+
 salaries = [42000, 55500, 61000, 48000, 72500]
 
-print(salaries[0])  # 42000
-print(salaries[2])  # 61000
-print(salaries[4])  # 72500
-```
+print(salaries[0])  # 42000
+
+print(salaries[2])  # 61000
+
+print(salaries[4])  # 72500
+
+\`\`\`
 
 Lze počítat také od konce:
 
-```python
-print(salaries[-1])  # poslední hodnota
-print(salaries[-2])  # předposlední hodnota
-print(salaries[-3])  # třetí hodnota od konce
-```
+\`\`\`python
 
----
+print(salaries[-1])  # poslední hodnota
 
-## 12. Slicing — výběr části listu
+print(salaries[-2])  # předposlední hodnota
 
-```python
+print(salaries[-3])  # třetí hodnota od konce
+
+\`\`\`
+
+\---
+
+**## 12. Slicing — výběr části listu**
+
+\`\`\`python
+
 salaries[1:4]
-```
 
-Vybere hodnoty od indexu `1` do indexu `4`, ale index `4` už nezahrne.
+\`\`\`
 
-```python
+Vybere hodnoty od indexu \`1\` do indexu \`4\`, ale index \`4\` už nezahrne.
+
+\`\`\`python
+
 salaries[:3]
+
 salaries[2:]
-```
+
+\`\`\`
 
 Příklad:
 
-```python
+\`\`\`python
+
 salaries = [42000, 55500, 61000, 48000, 72500]
 
 print(salaries[1:4])
-```
+
+\`\`\`
 
 Výsledek:
 
-```text
+\`\`\`text
+
 [55500, 61000, 48000]
-```
 
----
+\`\`\`
 
-## 13. Základní funkce pro list
+\---
 
-```python
+**## 13. Základní funkce pro list**
+
+\`\`\`python
+
 len(salaries)
-min(salaries)
-max(salaries)
-sum(salaries)
-```
 
-| Funkce | Význam |
-| --- | --- |
-| `len()` | počet hodnot |
-| `min()` | nejnižší hodnota |
-| `max()` | nejvyšší hodnota |
-| `sum()` | součet hodnot |
+min(salaries)
+
+max(salaries)
+
+sum(salaries)
+
+\`\`\`
+
+\| Funkce | Význam |
+
+\| --- | --- |
+
+\| \`len()\` | počet hodnot |
+
+\| \`min()\` | nejnižší hodnota |
+
+\| \`max()\` | nejvyšší hodnota |
+
+\| \`sum()\` | součet hodnot |
 
 Výpočet průměru:
 
-```python
+\`\`\`python
+
 average_salary = sum(salaries) / len(salaries)
-```
+
+\`\`\`
 
 Průměr zaokrouhlený na dvě desetinná místa:
 
-```python
+\`\`\`python
+
 average_salary = round(sum(salaries) / len(salaries), 2)
-```
 
----
+\`\`\`
 
-## 14. Přidání hodnoty — `append()`
+\---
 
-```python
+**## 14. Přidání hodnoty — \`append()\`**
+
+\`\`\`python
+
 salaries.append(50000)
-```
 
-`append()` přidá jednu hodnotu na konec listu.
+\`\`\`
 
-```python
+\`append()\` přidá jednu hodnotu na konec listu.
+
+\`\`\`python
+
 salaries = [42000, 55500]
+
 salaries.append(50000)
 
 print(salaries)
-```
+
+\`\`\`
 
 Výsledek:
 
-```text
+\`\`\`text
+
 [42000, 55500, 50000]
-```
 
----
+\`\`\`
 
-## 15. Mazání hodnot — `remove()` a `pop()`
+\---
 
-### `remove()`
+**## 15. Mazání hodnot — \`remove()\` a \`pop()\`**
+
+**### \`remove()\`**
 
 Odstraní první výskyt konkrétní hodnoty:
 
-```python
-salaries.remove(50000)
-```
+\`\`\`python
 
-### `pop()`
+salaries.remove(50000)
+
+\`\`\`
+
+**### \`pop()\`**
 
 Odstraní hodnotu podle indexu:
 
-```python
+\`\`\`python
+
 salaries.pop(2)
-```
+
+\`\`\`
 
 Bez indexu odstraní poslední hodnotu:
 
-```python
+\`\`\`python
+
 salaries.pop()
-```
 
----
+\`\`\`
 
-## 16. Řazení — `sort()` a `sorted()`
+\---
 
-### `sort()`
+**## 16. Řazení — \`sort()\` a \`sorted()\`**
+
+**### \`sort()\`**
 
 Změní přímo původní list.
 
-```python
+\`\`\`python
+
 salaries.sort()
-```
+
+\`\`\`
 
 Sestupně:
 
-```python
-salaries.sort(reverse=True)
-```
+\`\`\`python
 
-### `sorted()`
+salaries.sort(reverse=True)
+
+\`\`\`
+
+**### \`sorted()\`**
 
 Vytvoří nový seřazený list a původní ponechá beze změny.
 
-```python
+\`\`\`python
+
 salaries = [42000, 55500, 61000, 48000, 72500]
 
 sorted_salaries = sorted(salaries)
 
 print(salaries)
+
 print(sorted_salaries)
-```
 
----
+\`\`\`
 
-## 17. Cyklus — `for`
+\---
 
-`for` postupně projde jednotlivé hodnoty.
+**## 17. Cyklus — \`for\`**
 
-```python
+\`for\` postupně projde jednotlivé hodnoty.
+
+\`\`\`python
+
 for salary in salaries:
-    print(salary)
-```
 
-Proměnnou `salary` není nutné předem vytvářet.
+    print(salary)
 
-```python
+\`\`\`
+
+Proměnnou \`salary\` není nutné předem vytvářet.
+
+\`\`\`python
+
 for salary in salaries:
-```
+
+\`\`\`
 
 lze číst jako:
 
-> Pro každou hodnotu v `salaries` ji dočasně pojmenuj `salary`.
+\> Pro každou hodnotu v \`salaries\` ji dočasně pojmenuj \`salary\`.
 
----
+\---
 
-## 18. `for` + `if` — filtrování hodnot
+**## 18. \`for\` + \`if\` — filtrování hodnot**
 
-```python
+\`\`\`python
+
 for salary in salaries:
-    if salary > 50000:
-        print(salary)
-```
+
+    if salary > 50000:
+
+        print(salary)
+
+\`\`\`
 
 Python postupně projde celý list a podmínku vyhodnotí pro každou hodnotu.
 
-Princip je podobný filtrování pomocí `WHERE` v SQL, i když `if` je obecná podmínka Pythonu.
+Princip je podobný filtrování pomocí \`WHERE\` v SQL, i když \`if\` je obecná podmínka Pythonu.
 
----
+\---
 
-## 19. Vytvoření nového listu podle podmínky
+**## 19. Vytvoření nového listu podle podmínky**
 
-```python
+\`\`\`python
+
 high_salaries = []
 
 for salary in salaries:
-    if salary > 50000:
-        high_salaries.append(salary)
-```
+
+    if salary > 50000:
+
+        high_salaries.append(salary)
+
+\`\`\`
 
 Výsledek:
 
-```python
-print(high_salaries)
-```
+\`\`\`python
 
-```text
+print(high_salaries)
+
+\`\`\`
+
+\`\`\`text
+
 [55500, 61000, 72500]
-```
+
+\`\`\`
 
 Princip:
 
-**původní data → podmínka → nový list → výpočet**
+**\*\*původní data → podmínka → nový list → výpočet\*\***
 
----
+\---
 
-## 20. Transformace hodnot pomocí `for`
+**## 20. Transformace hodnot pomocí \`for\`**
 
 Například zvýšení všech mezd o 10 %:
 
-```python
+\`\`\`python
+
 increased_salaries = []
 
 for salary in salaries:
-    new_salary = round(salary * 1.1, 2)
-    increased_salaries.append(new_salary)
-```
+
+    new_salary = round(salary \* 1.1, 2)
+
+    increased_salaries.append(new_salary)
+
+\`\`\`
 
 Princip:
 
-**vezmi hodnotu → proveď výpočet → ulož nový výsledek**
+**\*\*vezmi hodnotu → proveď výpočet → ulož nový výsledek\*\***
 
----
+\---
 
-## 21. `range()`
+**## 21. \`range()\`**
 
-```python
+\`\`\`python
+
 for number in range(5):
-    print(number)
-```
+
+    print(number)
+
+\`\`\`
 
 Výsledek:
 
-```text
+\`\`\`text
+
 0
+
 1
+
 2
+
 3
+
 4
-```
+
+\`\`\`
 
 Základní varianty:
 
-```python
+\`\`\`python
+
 range(stop)
+
 range(start, stop)
+
 range(start, stop, step)
-```
+
+\`\`\`
 
 Příklady:
 
-```python
-range(5)         # 0, 1, 2, 3, 4
-range(2, 6)      # 2, 3, 4, 5
-range(2, 10, 2)  # 2, 4, 6, 8
-```
+\`\`\`python
 
----
+range(5)         # 0, 1, 2, 3, 4
 
-## 22. `enumerate()` — index a hodnota
+range(2, 6)      # 2, 3, 4, 5
 
-```python
+range(2, 10, 2)  # 2, 4, 6, 8
+
+\`\`\`
+
+\---
+
+**## 22. \`enumerate()\` — index a hodnota**
+
+\`\`\`python
+
 salaries = [42000, 55500, 61000]
 
 for index, salary in enumerate(salaries):
-    print(index, salary)
-```
+
+    print(index, salary)
+
+\`\`\`
 
 Výsledek:
 
-```text
+\`\`\`text
+
 0 42000
+
 1 55500
+
 2 61000
-```
 
-`index` obsahuje pozici a `salary` hodnotu.
+\`\`\`
 
-Pořadí ve `print()` můžeme změnit:
+\`index\` obsahuje pozici a \`salary\` hodnotu.
 
-```python
+Pořadí ve \`print()\` můžeme změnit:
+
+\`\`\`python
+
 print(salary, index)
-```
+
+\`\`\`
 
 To změní pouze pořadí výpisu.
 
----
+\---
 
-## 23. Dictionary — slovník
+**## 23. Dictionary — slovník**
 
 Dictionary ukládá data jako dvojice:
 
-**klíč → hodnota**
+**\*\*klíč → hodnota\*\***
 
-```python
+\`\`\`python
+
 employee = {
-    "name": "Petr",
-    "department": "Sales",
-    "salary": 45000,
-    "active": True
+
+    "name": "Petr",
+
+    "department": "Sales",
+
+    "salary": 45000,
+
+    "active": True
+
 }
-```
+
+\`\`\`
 
 Datový typ:
 
-```python
+\`\`\`python
+
 print(type(employee))
-```
+
+\`\`\`
 
 Výsledek:
 
-```text
-<class 'dict'>
-```
+\`\`\`text
+
+\<class 'dict'>
+
+\`\`\`
 
 Na rozdíl od jednoduchého listu mají jednotlivé hodnoty svůj význam popsaný klíčem.
 
-```python
+\`\`\`python
+
 employee["name"]
+
 employee["salary"]
-```
 
----
+\`\`\`
 
-## 24. Přístup k hodnotám dictionary
+\---
 
-```python
+**## 24. Přístup k hodnotám dictionary**
+
+\`\`\`python
+
 print(employee["name"])
+
 print(employee["salary"])
+
 print(employee["department"])
-```
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Petr
+
 45000
+
 Sales
-```
+
+\`\`\`
 
 Hranaté závorky zde neznamenají vytvoření listu.
 
-```python
+\`\`\`python
+
 employee["salary"]
-```
+
+\`\`\`
 
 znamená:
 
-> Z dictionary `employee` vezmi hodnotu pod klíčem `"salary"`.
+\> Z dictionary \`employee\` vezmi hodnotu pod klíčem \`"salary"\`.
 
----
+\---
 
-## 25. Změna hodnoty v dictionary
+**## 25. Změna hodnoty v dictionary**
 
-```python
+\`\`\`python
+
 employee["salary"] = 50000
-```
 
-Původní hodnota klíče `"salary"` se přepíše.
+\`\`\`
 
-```python
+Původní hodnota klíče \`"salary"\` se přepíše.
+
+\`\`\`python
+
 print(employee)
-```
+
+\`\`\`
 
 Výsledek obsahuje:
 
-```text
+\`\`\`text
+
 'salary': 50000
-```
+
+\`\`\`
 
 Samostatné:
 
-```python
+\`\`\`python
+
 salary = 50000
-```
 
-by pouze vytvořilo nebo změnilo proměnnou `salary`.
+\`\`\`
 
-Dictionary `employee` by to nezměnilo.
+by pouze vytvořilo nebo změnilo proměnnou \`salary\`.
 
----
+Dictionary \`employee\` by to nezměnilo.
 
-## 26. Přidání nového klíče do dictionary
+\---
+
+**## 26. Přidání nového klíče do dictionary**
 
 Pokud klíč ještě neexistuje, Python ho vytvoří:
 
-```python
+\`\`\`python
+
 employee["city"] = "Prague"
-```
+
+\`\`\`
 
 Dictionary nyní obsahuje také:
 
-```text
+\`\`\`text
+
 'city': 'Prague'
-```
+
+\`\`\`
 
 Stejná syntaxe tedy může:
 
-- změnit existující hodnotu,
-- přidat nový klíč.
+\- změnit existující hodnotu,
 
----
+\- přidat nový klíč.
 
-## 27. Odstranění klíče — `pop()`
+\---
 
-```python
+**## 27. Odstranění klíče — \`pop()\`**
+
+\`\`\`python
+
 employee.pop("city")
-```
 
-Odstraní klíč `"city"` společně s jeho hodnotou.
+\`\`\`
 
-```python
+Odstraní klíč \`"city"\` společně s jeho hodnotou.
+
+\`\`\`python
+
 print(employee)
-```
 
----
+\`\`\`
 
-## 28. Klíče, hodnoty a dvojice — `keys()`, `values()`, `items()`
+\---
 
-### Klíče
+**## 28. Klíče, hodnoty a dvojice — \`keys()\`, \`values()\`, \`items()\`**
 
-```python
+**### Klíče**
+
+\`\`\`python
+
 print(employee.keys())
-```
+
+\`\`\`
 
 Například:
 
-```text
+\`\`\`text
+
 dict_keys(['name', 'department', 'salary', 'active'])
-```
 
-### Hodnoty
+\`\`\`
 
-```python
+**### Hodnoty**
+
+\`\`\`python
+
 print(employee.values())
-```
+
+\`\`\`
 
 Například:
 
-```text
+\`\`\`text
+
 dict_values(['Petr', 'Sales', 50000, True])
-```
 
-### Klíče a hodnoty společně
+\`\`\`
 
-```python
+**### Klíče a hodnoty společně**
+
+\`\`\`python
+
 print(employee.items())
-```
+
+\`\`\`
 
 Například:
 
-```text
+\`\`\`text
+
 dict_items([('name', 'Petr'), ('department', 'Sales'), ('salary', 50000), ('active', True)])
-```
 
-`items()` poskytuje dvojice:
+\`\`\`
 
-```text
+\`items()\` poskytuje dvojice:
+
+\`\`\`text
+
 klíč → hodnota
-```
 
----
+\`\`\`
 
-## 29. Procházení dictionary pomocí `for`
+\---
 
-Pomocí `.items()` můžeme současně získat klíč a jeho hodnotu:
+**## 29. Procházení dictionary pomocí \`for\`**
 
-```python
+Pomocí \`.items()\` můžeme současně získat klíč a jeho hodnotu:
+
+\`\`\`python
+
 for key, value in employee.items():
-    print(key, value)
-```
+
+    print(key, value)
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 name Petr
+
 department Sales
+
 salary 50000
+
 active True
-```
+
+\`\`\`
 
 Princip:
 
-```text
-1. průchod → name + Petr
-2. průchod → department + Sales
-3. průchod → salary + 50000
-4. průchod → active + True
-```
+\`\`\`text
 
----
+1\. průchod → name + Petr
 
-## 30. List dictionaries
+2\. průchod → department + Sales
+
+3\. průchod → salary + 50000
+
+4\. průchod → active + True
+
+\`\`\`
+
+\---
+
+**## 30. List dictionaries**
 
 Pro data podobná tabulce můžeme vytvořit list, který obsahuje více dictionaries.
 
-```python
+\`\`\`python
+
 employees = [
-    {"name": "Petr", "department": "Sales", "salary": 50000},
-    {"name": "Jana", "department": "IT", "salary": 65000},
-    {"name": "Martin", "department": "Sales", "salary": 48000},
-    {"name": "Eva", "department": "IT", "salary": 72000}
+
+    {"name": "Petr", "department": "Sales", "salary": 50000},
+
+    {"name": "Jana", "department": "IT", "salary": 65000},
+
+    {"name": "Martin", "department": "Sales", "salary": 48000},
+
+    {"name": "Eva", "department": "IT", "salary": 72000}
+
 ]
-```
+
+\`\`\`
 
 Zjednodušeně:
 
-- celý `employees` = tabulka,
-- jeden dictionary = jeden řádek,
-- klíče = názvy sloupců,
-- hodnoty = hodnoty v daném řádku.
+\- celý \`employees\` = tabulka,
+
+\- jeden dictionary = jeden řádek,
+
+\- klíče = názvy sloupců,
+
+\- hodnoty = hodnoty v daném řádku.
 
 Přibližná analogie s SQL tabulkou:
 
-| name | department | salary |
-| --- | --- | ---: |
-| Petr | Sales | 50000 |
-| Jana | IT | 65000 |
-| Martin | Sales | 48000 |
-| Eva | IT | 72000 |
+\| name | department | salary |
 
----
+\| --- | --- | ---: |
 
-## 31. Přístup k dictionary uvnitř listu
+\| Petr | Sales | 50000 |
+
+\| Jana | IT | 65000 |
+
+\| Martin | Sales | 48000 |
+
+\| Eva | IT | 72000 |
+
+\---
+
+**## 31. Přístup k dictionary uvnitř listu**
 
 Druhý zaměstnanec:
 
-```python
+\`\`\`python
+
 print(employees[1])
-```
+
+\`\`\`
 
 Výsledek:
 
-```text
+\`\`\`text
+
 {'name': 'Jana', 'department': 'IT', 'salary': 65000}
-```
+
+\`\`\`
 
 Pouze plat druhého zaměstnance:
 
-```python
+\`\`\`python
+
 print(employees[1]["salary"])
-```
+
+\`\`\`
 
 Výsledek:
 
-```text
+\`\`\`text
+
 65000
-```
+
+\`\`\`
 
 Čteme postupně:
 
-```python
+\`\`\`python
+
 employees[1]["salary"]
-```
 
-1. `employees[1]` → vezmi druhý dictionary,
-2. `["salary"]` → z něj vezmi hodnotu klíče `"salary"`.
+\`\`\`
 
----
+1\. \`employees[1]\` → vezmi druhý dictionary,
 
-## 32. Procházení listu dictionaries
+2\. \`["salary"]\` → z něj vezmi hodnotu klíče \`"salary"\`.
 
-```python
+\---
+
+**## 32. Procházení listu dictionaries**
+
+\`\`\`python
+
 for employee in employees:
-    print(employee["name"])
-```
+
+    print(employee["name"])
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Petr
+
 Jana
+
 Martin
+
 Eva
-```
 
-Při každém průchodu obsahuje `employee` jeden celý dictionary.
+\`\`\`
 
----
+Při každém průchodu obsahuje \`employee\` jeden celý dictionary.
 
-## 33. Filtrování listu dictionaries
+\---
+
+**## 33. Filtrování listu dictionaries**
 
 Pouze zaměstnanci z IT:
 
-```python
+\`\`\`python
+
 for employee in employees:
-    if employee["department"] == "IT":
-        print(employee["name"])
-```
+
+    if employee["department"] == "IT":
+
+        print(employee["name"])
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Jana
+
 Eva
-```
 
-Pouze zaměstnanci s platem nad `50000`:
+\`\`\`
 
-```python
+Pouze zaměstnanci s platem nad \`50000\`:
+
+\`\`\`python
+
 for employee in employees:
-    if employee["salary"] > 50000:
-        print(employee["name"], employee["salary"])
-```
+
+    if employee["salary"] > 50000:
+
+        print(employee["name"], employee["salary"])
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Jana 65000
+
 Eva 72000
-```
 
----
+\`\`\`
 
-## 34. Filtrování dictionaries do nového listu
+\---
 
-```python
+**## 34. Filtrování dictionaries do nového listu**
+
+\`\`\`python
+
 high_paid_employees = []
 
 for employee in employees:
-    if employee["salary"] > 50000:
-        high_paid_employees.append(employee)
-```
+
+    if employee["salary"] > 50000:
+
+        high_paid_employees.append(employee)
+
+\`\`\`
 
 Do nového listu se ukládá celý dictionary zaměstnance.
 
 Výsledek můžeme projít dalším cyklem:
 
-```python
+\`\`\`python
+
 for employee in high_paid_employees:
-    print(
-        employee["name"],
-        employee["department"],
-        employee["salary"]
-    )
-```
+
+    print(
+
+        employee["name"],
+
+        employee["department"],
+
+        employee["salary"]
+
+    )
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Jana IT 65000
+
 Eva IT 72000
-```
+
+\`\`\`
 
 Rozdíl:
 
-```python
+\`\`\`python
+
 high_paid_employees.append(employee)
-```
+
+\`\`\`
 
 uloží celý dictionary.
 
-```python
+\`\`\`python
+
 high_paid_employees.append(employee["name"])
-```
+
+\`\`\`
 
 uloží pouze jméno.
 
----
+\---
 
-## 35. Praktický analytický vzor
+**## 35. Praktický analytický vzor**
 
 Při práci s listem dictionaries se často opakuje tento postup:
 
-```python
+\`\`\`python
+
 products = [
-    {"name": "Laptop", "category": "Electronics", "price": 23000},
-    {"name": "Mouse", "category": "Electronics", "price": 800},
-    {"name": "Desk", "category": "Furniture", "price": 12000}
+
+    {"name": "Laptop", "category": "Electronics", "price": 23000},
+
+    {"name": "Mouse", "category": "Electronics", "price": 800},
+
+    {"name": "Desk", "category": "Furniture", "price": 12000}
+
 ]
 
 expensive_products = []
 
 for product in products:
-    if product["price"] > 10000:
-        expensive_products.append(product)
+
+    if product["price"] > 10000:
+
+        expensive_products.append(product)
 
 for product in expensive_products:
-    print(product["name"], product["category"])
-```
+
+    print(product["name"], product["category"])
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Laptop Electronics
+
 Desk Furniture
-```
+
+\`\`\`
 
 Princip:
 
-```text
+\`\`\`text
+
 původní data
+
 ↓
+
 for
+
 ↓
+
 if
+
 ↓
+
 výběr požadovaných záznamů
+
 ↓
+
 nový list
+
 ↓
+
 další práce s výsledkem
-```
+
+\`\`\`
 
 To je jeden ze základních vzorů práce s daty v Pythonu.
 
----
+\---
 
-## 36. Vlastní funkce — `def`
+**## 36. Vlastní funkce — \`def\`**
 
 Funkce umožňuje pojmenovat určitý blok kódu a později ho opakovaně spouštět.
 
-Funkci vytvoříme pomocí `def`:
+Funkci vytvoříme pomocí \`def\`:
 
-```python
+\`\`\`python
+
 def welcome():
-    print("Welcome to Data Analytics!")
-```
+
+    print("Welcome to Data Analytics!")
+
+\`\`\`
 
 Samotné vytvoření funkce ji ještě nespustí.
 
 Funkci zavoláme:
 
-```python
+\`\`\`python
+
 welcome()
-```
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Welcome to Data Analytics!
-```
+
+\`\`\`
 
 Pokud ji zavoláme dvakrát:
 
-```python
+\`\`\`python
+
 welcome()
+
 welcome()
-```
+
+\`\`\`
 
 provede se dvakrát.
 
 Důležitý rozdíl:
 
-```python
+\`\`\`python
+
 def welcome():
-```
 
-= vytvoření / definice funkce.
+\`\`\`
 
-```python
+\= vytvoření / definice funkce.
+
+\`\`\`python
+
 welcome()
-```
 
-= zavolání / spuštění funkce.
+\`\`\`
 
----
+\= zavolání / spuštění funkce.
 
-## 37. Parametry funkcí
+\---
+
+**## 37. Parametry funkcí**
 
 Funkce může při zavolání dostat hodnotu.
 
-```python
+\`\`\`python
+
 def welcome(name):
-    print("Welcome", name, "to Data Analytics!")
-```
+
+    print("Welcome", name, "to Data Analytics!")
+
+\`\`\`
 
 Volání:
 
-```python
+\`\`\`python
+
 welcome("Petr")
+
 welcome("Jana")
-```
+
+\`\`\`
 
 Výstup:
 
-```text
-Welcome Petr to Data Analytics!
-Welcome Jana to Data Analytics!
-```
+\`\`\`text
 
-`name` je **parametr funkce**.
+Welcome Petr to Data Analytics!
+
+Welcome Jana to Data Analytics!
+
+\`\`\`
+
+\`name\` je **\*\*parametr funkce\*\***.
 
 Při:
 
-```python
+\`\`\`python
+
 welcome("Petr")
-```
+
+\`\`\`
 
 si můžeme průběh zjednodušeně představit:
 
-```text
+\`\`\`text
+
 name = "Petr"
-```
 
-### Parametr vs. argument
+\`\`\`
+
+**### Parametr vs. argument**
 
 V:
 
-```python
+\`\`\`python
+
 def welcome(name):
-```
 
-je `name` parametr.
+\`\`\`
+
+je \`name\` parametr.
 
 V:
 
-```python
-welcome("Petr")
-```
+\`\`\`python
 
-je `"Petr"` argument předaný funkci.
+welcome("Petr")
+
+\`\`\`
+
+je \`"Petr"\` argument předaný funkci.
 
 Zjednodušeně:
 
-> Parametr je proměnná funkce, do které při jejím zavolání předáváme hodnotu.
+\> Parametr je proměnná funkce, do které při jejím zavolání předáváme hodnotu.
 
----
+\---
 
-## 38. Více parametrů
+**## 38. Více parametrů**
 
 Funkce může přijímat více hodnot:
 
-```python
+\`\`\`python
+
 def employee_info(name, department):
-    print("Employee:", name, "Department:", department)
-```
+
+    print("Employee:", name, "Department:", department)
+
+\`\`\`
 
 Volání:
 
-```python
+\`\`\`python
+
 employee_info("Petr", "Sales")
+
 employee_info("Jana", "IT")
-```
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Employee: Petr Department: Sales
+
 Employee: Jana Department: IT
-```
+
+\`\`\`
 
 Při:
 
-```python
+\`\`\`python
+
 employee_info("Petr", "Sales")
-```
+
+\`\`\`
 
 Python přiřadí:
 
-```text
-name       → "Petr"
+\`\`\`text
+
+name       → "Petr"
+
 department → "Sales"
-```
+
+\`\`\`
 
 Pořadí argumentů je proto důležité.
 
----
+\---
 
-## 39. Funkce může provádět výpočty
+**## 39. Funkce může provádět výpočty**
 
 Parametr lze použít stejně jako běžnou proměnnou:
 
-```python
+\`\`\`python
+
 def salary_info(salary):
-    print("Salary after increase:", round(salary * 1.1, 2))
-```
+
+    print("Salary after increase:", round(salary \* 1.1, 2))
+
+\`\`\`
 
 Volání:
 
-```python
+\`\`\`python
+
 salary_info(50000)
-```
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Salary after increase: 55000.0
-```
 
----
+\`\`\`
 
-## 40. `return` — vrácení výsledku
+\---
 
-Pokud chceme výsledek funkce dále používat, použijeme `return`.
+**## 40. \`return\` — vrácení výsledku**
 
-```python
+Pokud chceme výsledek funkce dále používat, použijeme \`return\`.
+
+\`\`\`python
+
 def increase_salary(salary):
-    new_salary = salary * 1.1
-    return new_salary
-```
+
+    new_salary = salary \* 1.1
+
+    return new_salary
+
+\`\`\`
 
 Volání:
 
-```python
+\`\`\`python
+
 result = increase_salary(50000)
-```
+
+\`\`\`
 
 Funkce vypočítá:
 
-```text
+\`\`\`text
+
 new_salary = 55000
-```
+
+\`\`\`
 
 a:
 
-```python
+\`\`\`python
+
 return new_salary
-```
+
+\`\`\`
 
 vrátí tuto hodnotu ven.
 
 Výsledek se uloží:
 
-```text
+\`\`\`text
+
 result = 55000
-```
+
+\`\`\`
 
 Potom s ním můžeme dále pracovat:
 
-```python
+\`\`\`python
+
 print("Salary with bonus:", round(result + 5000, 2))
-```
 
----
+\`\`\`
 
-## 41. `print()` vs. `return`
+\---
+
+**## 41. \`print()\` vs. \`return\`**
 
 Tohle je důležitý rozdíl.
 
-### `print()`
+**### \`print()\`**
 
-```python
+\`\`\`python
+
 def show_salary(salary):
-    print(salary)
-```
 
-`print()` hodnotu pouze **zobrazí v terminálu**.
+    print(salary)
 
-### `return`
+\`\`\`
 
-```python
+\`print()\` hodnotu pouze **\*\*zobrazí v terminálu\*\***.
+
+**### \`return\`**
+
+\`\`\`python
+
 def get_salary(salary):
-    return salary
-```
 
-`return` hodnotu **vrátí z funkce ven**.
+    return salary
+
+\`\`\`
+
+\`return\` hodnotu **\*\*vrátí z funkce ven\*\***.
 
 Můžeme ji potom uložit:
 
-```python
+\`\`\`python
+
 result = get_salary(50000)
-```
+
+\`\`\`
 
 a dále použít:
 
-```python
+\`\`\`python
+
 bonus_salary = result + 5000
-```
+
+\`\`\`
 
 Zjednodušeně:
 
-```text
-print()  → ukaž výsledek člověku
-return   → pošli výsledek zpět programu
-```
+\`\`\`text
+
+print()  → ukaž výsledek člověku
+
+return   → pošli výsledek zpět programu
+
+\`\`\`
 
 Důležité:
 
-```text
-()       → spusť funkci
-return   → vrať výsledek
-print()  → zobraz výsledek
-```
+\`\`\`text
 
----
+()       → spusť funkci
 
-## 42. Funkce pro analytický výpočet
+return   → vrať výsledek
+
+print()  → zobraz výsledek
+
+\`\`\`
+
+\---
+
+**## 42. Funkce pro analytický výpočet**
 
 Například funkce pro výpočet průměru:
 
-```python
+\`\`\`python
+
 def calculate_average(salaries):
-    average_salary = round(sum(salaries) / len(salaries), 2)
-    return average_salary
-```
+
+    average_salary = round(sum(salaries) / len(salaries), 2)
+
+    return average_salary
+
+\`\`\`
 
 Data:
 
-```python
+\`\`\`python
+
 salaries = [50000, 65000, 48000, 72000, 58000]
-```
+
+\`\`\`
 
 Volání:
 
-```python
+\`\`\`python
+
 average_salary = calculate_average(salaries)
-```
+
+\`\`\`
 
 Výpis:
 
-```python
+\`\`\`python
+
 print("Average salary:", average_salary, "Kc")
-```
+
+\`\`\`
 
 Výsledek:
 
-```text
+\`\`\`text
+
 Average salary: 58600.0 Kc
-```
+
+\`\`\`
 
 Princip:
 
-```text
+\`\`\`text
+
 list
+
 ↓
+
 předání do funkce
+
 ↓
+
 výpočet
+
 ↓
+
 return
+
 ↓
+
 uložení výsledku
+
 ↓
+
 další použití
-```
 
----
+\`\`\`
 
-## 43. Počítadlo — `count`
+\---
+
+**## 43. Počítadlo — \`count\`**
 
 Pokud nechceme ukládat konkrétní hodnoty, ale pouze zjistit jejich počet, můžeme použít číselné počítadlo:
 
-```python
+\`\`\`python
+
 count = 0
-```
+
+\`\`\`
 
 Například:
 
-```python
+\`\`\`python
+
 def count_above_average(salaries):
-    average_salary = round(sum(salaries) / len(salaries), 2)
-    count = 0
 
-    for salary in salaries:
-        if salary > average_salary:
-            count = count + 1
+    average_salary = round(sum(salaries) / len(salaries), 2)
 
-    return count
-```
+    count = 0
+
+    for salary in salaries:
+
+        if salary > average_salary:
+
+            count = count + 1
+
+    return count
+
+\`\`\`
 
 Volání:
 
-```python
+\`\`\`python
+
 employees_above_average = count_above_average(salaries)
-```
+
+\`\`\`
 
 Výpis:
 
-```python
+\`\`\`python
+
 print("Employees above average:", employees_above_average)
-```
+
+\`\`\`
 
 Rozdíl:
 
-```python
+\`\`\`python
+
 count = []
-```
+
+\`\`\`
 
 vytváří prázdný list.
 
-```python
+\`\`\`python
+
 count = 0
-```
+
+\`\`\`
 
 vytváří číselné počítadlo.
 
-### Zvýšení počítadla
+**### Zvýšení počítadla**
 
-```python
+\`\`\`python
+
 count = count + 1
-```
+
+\`\`\`
 
 lze zkráceně napsat:
 
-```python
+\`\`\`python
+
 count += 1
-```
+
+\`\`\`
 
 Obě varianty znamenají totéž.
 
----
+\---
 
-## 44. `return` a odsazení
+**## 44. \`return\` a odsazení**
 
-Umístění `return` je důležité.
+Umístění \`return\` je důležité.
 
 Správně:
 
-```python
+\`\`\`python
+
 def count_above_average(salaries):
-    count = 0
 
-    for salary in salaries:
-        if salary > 50000:
-            count = count + 1
+    count = 0
 
-    return count
-```
+    for salary in salaries:
 
-`return` je mimo `for`, takže Python nejprve projde celý list.
+        if salary > 50000:
 
-Pokud by byl `return` uvnitř cyklu, funkce by mohla skončit příliš brzy.
+            count = count + 1
 
-`return` ukončuje běh funkce a vrací výsledek.
+    return count
 
----
+\`\`\`
 
-## 45. `if` / `elif` / `else`
+\`return\` je mimo \`for\`, takže Python nejprve projde celý list.
 
-Pokud potřebujeme více než dvě možnosti, můžeme použít `elif`.
+Pokud by byl \`return\` uvnitř cyklu, funkce by mohla skončit příliš brzy.
 
-```python
+\`return\` ukončuje běh funkce a vrací výsledek.
+
+\---
+
+**## 45. \`if\` / \`elif\` / \`else\`**
+
+Pokud potřebujeme více než dvě možnosti, můžeme použít \`elif\`.
+
+\`\`\`python
+
 def salary_level(salary):
-    if salary >= 80000:
-        return "Very high salary"
-    elif salary >= 60000:
-        return "High salary"
-    elif salary >= 40000:
-        return "Standard salary"
-    else:
-        return "Low salary"
-```
 
-`elif` znamená:
+    if salary >= 80000:
 
-> jinak pokud
+        return "Very high salary"
+
+    elif salary >= 60000:
+
+        return "High salary"
+
+    elif salary >= 40000:
+
+        return "Standard salary"
+
+    else:
+
+        return "Low salary"
+
+\`\`\`
+
+\`elif\` znamená:
+
+\> jinak pokud
 
 Strukturu můžeme číst:
 
-```text
-if    → pokud platí první podmínka
-elif  → jinak pokud platí další podmínka
-elif  → jinak pokud platí další podmínka
-else  → jinak všechny ostatní případy
-```
+\`\`\`text
 
-Můžeme použít více `elif`.
+if    → pokud platí první podmínka
 
----
+elif  → jinak pokud platí další podmínka
 
-## 46. Pořadí podmínek
+elif  → jinak pokud platí další podmínka
 
-Python vyhodnocuje `if / elif / else` **shora dolů**.
+else  → jinak všechny ostatní případy
 
-Jakmile najde první podmínku, která je `True`, provede její blok a ostatní větve přeskočí.
+\`\`\`
+
+Můžeme použít více \`elif\`.
+
+\---
+
+**## 46. Pořadí podmínek**
+
+Python vyhodnocuje \`if / elif / else\` **\*\*shora dolů\*\***.
+
+Jakmile najde první podmínku, která je \`True\`, provede její blok a ostatní větve přeskočí.
 
 Například:
 
-```python
+\`\`\`python
+
 salary = 65000
-```
+
+\`\`\`
 
 a:
 
-```python
+\`\`\`python
+
 if salary >= 80000:
-    ...
+
+    ...
+
 elif salary >= 60000:
-    ...
+
+    ...
+
 elif salary >= 40000:
-    ...
-```
+
+    ...
+
+\`\`\`
 
 Python vyhodnotí:
 
-```text
-65000 >= 80000 → False
-65000 >= 60000 → True
-```
+\`\`\`text
 
-a další `elif` už neřeší.
+65000 >= 80000 → False
+
+65000 >= 60000 → True
+
+\`\`\`
+
+a další \`elif\` už neřeší.
 
 Proto je při vytváření kategorií důležité správné pořadí podmínek.
 
----
+\---
 
-## 47. Hraniční hodnoty — `>` vs. `>=`
+**## 47. Hraniční hodnoty — \`>\` vs. \`>=\`**
 
 Rozdíl:
 
-```python
+\`\`\`python
+
 salary > 80000
-```
 
-znamená více než `80000`.
+\`\`\`
 
-Hodnota přesně `80000` podmínku nesplní.
+znamená více než \`80000\`.
 
-```python
+Hodnota přesně \`80000\` podmínku nesplní.
+
+\`\`\`python
+
 salary >= 80000
-```
 
-znamená `80000` nebo více.
+\`\`\`
+
+znamená \`80000\` nebo více.
 
 Například pokud chceme:
 
-```text
+\`\`\`text
+
 80000 a více → Very high salary
+
 60000 a více → High salary
+
 40000 a více → Standard salary
-pod 40000    → Low salary
-```
+
+pod 40000    → Low salary
+
+\`\`\`
 
 použijeme:
 
-```python
+\`\`\`python
+
 if salary >= 80000:
-    return "Very high salary"
+
+    return "Very high salary"
+
 elif salary >= 60000:
-    return "High salary"
+
+    return "High salary"
+
 elif salary >= 40000:
-    return "Standard salary"
+
+    return "Standard salary"
+
 else:
-    return "Low salary"
-```
+
+    return "Low salary"
+
+\`\`\`
 
 Hraniční hodnoty je vhodné při testování programu kontrolovat:
 
-```text
+\`\`\`text
+
 39999
+
 40000
+
 60000
+
 80000
-```
 
----
+\`\`\`
 
-## 48. Výchozí hodnota parametru
+\---
+
+**## 48. Výchozí hodnota parametru**
 
 Parametr může mít výchozí hodnotu:
 
-```python
+\`\`\`python
+
 def calculate_tax(salary, tax_rate=0.15):
-    tax = round(salary * tax_rate, 2)
-    return tax
-```
+
+    tax = round(salary \* tax_rate, 2)
+
+    return tax
+
+\`\`\`
 
 Pokud druhý argument nezadáme:
 
-```python
+\`\`\`python
+
 calculate_tax(50000)
-```
+
+\`\`\`
 
 Python použije:
 
-```text
+\`\`\`text
+
 tax_rate = 0.15
-```
+
+\`\`\`
 
 Výsledek:
 
-```text
+\`\`\`text
+
 7500.0
-```
+
+\`\`\`
 
 Pokud zadáme jinou hodnotu:
 
-```python
-calculate_tax(50000, 0.20)
-```
+\`\`\`python
 
-hodnota `0.20` přepíše výchozích `0.15`.
+calculate_tax(50000, 0.20)
+
+\`\`\`
+
+hodnota \`0.20\` přepíše výchozích \`0.15\`.
 
 Výsledek:
 
-```text
+\`\`\`text
+
 10000.0
-```
 
----
+\`\`\`
 
-## 49. Scope — kde proměnná existuje
+\---
+
+**## 49. Scope — kde proměnná existuje**
 
 Parametry a proměnné vytvořené uvnitř funkce jsou běžně dostupné uvnitř této funkce.
 
-```python
+\`\`\`python
+
 def calculate_tax(salary, tax_rate=0.15):
-    tax = salary * tax_rate
-    return tax
-```
+
+    tax = salary \* tax_rate
+
+    return tax
+
+\`\`\`
 
 Uvnitř funkce známe:
 
-```text
+\`\`\`text
+
 salary
+
 tax_rate
+
 tax
-```
+
+\`\`\`
 
 Pokud ale mimo funkci napíšeme:
 
-```python
-print(tax_rate)
-```
+\`\`\`python
 
-Python nemusí tuto proměnnou znát, protože `tax_rate` je parametr funkce.
+print(tax_rate)
+
+\`\`\`
+
+Python nemusí tuto proměnnou znát, protože \`tax_rate\` je parametr funkce.
 
 Zjednodušeně:
 
-```text
+\`\`\`text
+
 uvnitř funkce
+
 ┌─────────────────────┐
-│ salary              │
-│ tax_rate            │
-│ tax                 │
+
+│ salary              │
+
+│ tax_rate            │
+
+│ tax                 │
+
 └─────────────────────┘
 
 mimo funkci
+
 → tyto lokální proměnné nejsou automaticky dostupné
-```
 
-Pokud chceme hodnotu dostat ven, použijeme `return`.
+\`\`\`
 
----
+Pokud chceme hodnotu dostat ven, použijeme \`return\`.
 
-## 50. Funkce může volat jinou funkci
+\---
+
+**## 50. Funkce může volat jinou funkci**
 
 Jedna funkce může použít výsledek jiné funkce.
 
 Nejprve máme:
 
-```python
+\`\`\`python
+
 def calculate_tax(salary, tax_rate=0.15):
-    tax = round(salary * tax_rate, 2)
-    return tax
-```
+
+    tax = round(salary \* tax_rate, 2)
+
+    return tax
+
+\`\`\`
 
 Potom:
 
-```python
+\`\`\`python
+
 def net_salary(salary, tax_rate=0.15):
-    tax = calculate_tax(salary, tax_rate)
-    net = salary - tax
-    return net
-```
+
+    tax = calculate_tax(salary, tax_rate)
+
+    net = salary - tax
+
+    return net
+
+\`\`\`
 
 Volání:
 
-```python
+\`\`\`python
+
 result = net_salary(80000, 0.25)
-```
+
+\`\`\`
 
 Průběh:
 
-```text
+\`\`\`text
+
 net_salary(80000, 0.25)
+
 ↓
+
 calculate_tax(80000, 0.25)
+
 ↓
+
 return 20000
+
 ↓
+
 tax = 20000
+
 ↓
+
 net = 80000 - 20000
+
 ↓
+
 return 60000
-```
+
+\`\`\`
 
 Výsledek:
 
-```text
+\`\`\`text
+
 60000
-```
+
+\`\`\`
 
 Výhodou je, že nemusíme stejný výpočet daně psát znovu.
 
----
+\---
 
-## 51. Funkce pracující s listem
+**## 51. Funkce pracující s listem**
 
 Funkci můžeme předat celý list:
 
-```python
+\`\`\`python
+
 salaries = [50000, 65000, 48000, 72000, 58000]
-```
+
+\`\`\`
 
 Například:
 
-```python
+\`\`\`python
+
 def highest_salary(salaries):
-    highest = max(salaries)
-    return highest
-```
+
+    highest = max(salaries)
+
+    return highest
+
+\`\`\`
 
 Volání:
 
-```python
+\`\`\`python
+
 highest_salary_result = highest_salary(salaries)
-```
+
+\`\`\`
 
 Výpis:
 
-```python
+\`\`\`python
+
 print("Highest salary:", highest_salary_result, "Kc")
-```
+
+\`\`\`
 
 Výsledek:
 
-```text
+\`\`\`text
+
 Highest salary: 72000 Kc
-```
 
-Výsledek funkce můžeme použít také přímo v `print()`:
+\`\`\`
 
-```python
+Výsledek funkce můžeme použít také přímo v \`print()\`:
+
+\`\`\`python
+
 print("Highest salary:", highest_salary(salaries), "Kc")
-```
+
+\`\`\`
 
 Není vždy nutné vytvářet pomocnou proměnnou.
 
----
+\---
 
-## 52. Zbytečné volání funkce
+**## 52. Zbytečné volání funkce**
 
 Pokud funkce něco vrací:
 
-```python
+\`\`\`python
+
 def highest_salary(salaries):
-    highest = max(salaries)
-    return highest
-```
+
+    highest = max(salaries)
+
+    return highest
+
+\`\`\`
 
 a napíšeme pouze:
 
-```python
+\`\`\`python
+
 highest_salary(salaries)
-```
+
+\`\`\`
 
 funkce se spustí a vrátí výsledek, ale v běžném skriptu s výsledkem nic dalšího neuděláme.
 
 Praktičtější je například:
 
-```python
+\`\`\`python
+
 result = highest_salary(salaries)
-```
+
+\`\`\`
 
 nebo:
 
-```python
+\`\`\`python
+
 print(highest_salary(salaries))
-```
 
----
+\`\`\`
 
-## 53. Funkce skládající více výpočtů
+\---
+
+**## 53. Funkce skládající více výpočtů**
 
 Můžeme vytvořit funkci, která používá několik již existujících funkcí:
 
-```python
-def calculate_average(salaries):
-    average = round(sum(salaries) / len(salaries), 2)
-    return average
+\`\`\`python
 
+def calculate_average(salaries):
+
+    average = round(sum(salaries) / len(salaries), 2)
+
+    return average
 
 def highest_salary(salaries):
-    highest = max(salaries)
-    return highest
 
+    highest = max(salaries)
+
+    return highest
 
 def salary_summary(salaries):
-    average = calculate_average(salaries)
-    highest = highest_salary(salaries)
 
-    print("Average:", average, "Kc", "/", "Highest:", highest, "Kc")
-```
+    average = calculate_average(salaries)
 
-Aby se `salary_summary()` skutečně provedla, musíme ji zavolat:
+    highest = highest_salary(salaries)
 
-```python
+    print("Average:", average, "Kc", "/", "Highest:", highest, "Kc")
+
+\`\`\`
+
+Aby se \`salary_summary()\` skutečně provedla, musíme ji zavolat:
+
+\`\`\`python
+
 salary_summary(salaries)
-```
+
+\`\`\`
 
 Průběh:
 
-```text
+\`\`\`text
+
 salary_summary(salaries)
+
 ↓
+
 calculate_average(salaries)
+
 ↓
+
 return 58600.0
+
 ↓
+
 average = 58600.0
+
 ↓
+
 highest_salary(salaries)
+
 ↓
+
 return 72000
+
 ↓
+
 highest = 72000
+
 ↓
+
 print(...)
-```
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Average: 58600.0 Kc / Highest: 72000 Kc
-```
 
----
+\`\`\`
 
-## 54. `return` mezi více funkcemi
+\---
 
-Pokud jedna funkce zavolá jinou funkci, `return` vrátí výsledek na místo, odkud byla funkce zavolána.
+**## 54. \`return\` mezi více funkcemi**
+
+Pokud jedna funkce zavolá jinou funkci, \`return\` vrátí výsledek na místo, odkud byla funkce zavolána.
 
 Například:
 
-```python
+\`\`\`python
+
 average = calculate_average(salaries)
-```
+
+\`\`\`
 
 Funkce:
 
-```python
+\`\`\`python
+
 def calculate_average(salaries):
-    average_salary = round(sum(salaries) / len(salaries), 2)
-    return average_salary
-```
+
+    average_salary = round(sum(salaries) / len(salaries), 2)
+
+    return average_salary
+
+\`\`\`
 
 vrátí výsledek zpět:
 
-```text
+\`\`\`text
+
 calculate_average(salaries)
+
 ↓
+
 return 58600.0
+
 ↓
+
 average = 58600.0
-```
+
+\`\`\`
 
 Stejný princip:
 
-```python
+\`\`\`python
+
 highest = highest_salary(salaries)
-```
+
+\`\`\`
 
 vede k:
 
-```text
+\`\`\`text
+
 highest = 72000
-```
+
+\`\`\`
 
 Důležité:
 
-> `return` vrací výsledek tomu, kdo funkci zavolal.
+\> \`return\` vrací výsledek tomu, kdo funkci zavolal.
 
----
+\---
 
-## 55. Vrácení více hodnot
+**## 55. Vrácení více hodnot**
 
 Funkce může vrátit také více hodnot:
 
-```python
-def salary_summary(salaries):
-    average = calculate_average(salaries)
-    highest = highest_salary(salaries)
+\`\`\`python
 
-    return average, highest
-```
+def salary_summary(salaries):
+
+    average = calculate_average(salaries)
+
+    highest = highest_salary(salaries)
+
+    return average, highest
+
+\`\`\`
 
 Výsledky můžeme uložit do dvou proměnných:
 
-```python
+\`\`\`python
+
 average, highest = salary_summary(salaries)
-```
+
+\`\`\`
 
 Potom můžeme s oběma hodnotami dále pracovat:
 
-```python
+\`\`\`python
+
 difference = highest - average
 
 print("Difference:", difference, "Kc")
-```
 
-Rozdíl oproti `print()`:
+\`\`\`
 
-```python
+Rozdíl oproti \`print()\`:
+
+\`\`\`python
+
 def salary_summary(salaries):
-    print(...)
-```
+
+    print(...)
+
+\`\`\`
 
 výsledky pouze zobrazí.
 
 Pokud použijeme:
 
-```python
+\`\`\`python
+
 return average, highest
-```
+
+\`\`\`
 
 můžeme výsledky získat z funkce ven a dále je používat.
 
----
+\---
 
-## 56. Praktický vzor funkce
+**## 56. Praktický vzor funkce**
 
 Jednoduchou analytickou funkci můžeme číst jako:
 
-```text
+\`\`\`text
+
 vstup
+
 ↓
+
 parametry
+
 ↓
+
 výpočet
+
 ↓
+
 případné podmínky / cykly
+
 ↓
+
 return
+
 ↓
+
 další práce s výsledkem
-```
+
+\`\`\`
 
 Například:
 
-```python
+\`\`\`python
+
 def calculate_average(salaries):
-    average = round(sum(salaries) / len(salaries), 2)
-    return average
+
+    average = round(sum(salaries) / len(salaries), 2)
+
+    return average
 
 result = calculate_average(salaries)
 
 print(result)
-```
 
----
+\`\`\`
 
-## 57. Nejčastější chyby u funkcí
+\---
 
-### Chybějící dvojtečka
+**## 57. Nejčastější chyby u funkcí**
+
+**### Chybějící dvojtečka**
 
 Špatně:
 
-```python
+\`\`\`python
+
 def calculate_average(salaries)
-```
+
+\`\`\`
 
 Správně:
 
-```python
+\`\`\`python
+
 def calculate_average(salaries):
-```
 
----
+\`\`\`
 
-### Funkce je vytvořená, ale není zavolaná
+\---
 
-```python
+**### Funkce je vytvořená, ale není zavolaná**
+
+\`\`\`python
+
 def welcome():
-    print("Welcome!")
-```
+
+    print("Welcome!")
+
+\`\`\`
 
 Tento kód samotný nic nevypíše.
 
 Musíme přidat:
 
-```python
+\`\`\`python
+
 welcome()
-```
 
----
+\`\`\`
 
-### `print()` místo `return`
+\---
 
-```python
+**### \`print()\` místo \`return\`**
+
+\`\`\`python
+
 def calculate_average(salaries):
-    print(sum(salaries) / len(salaries))
-```
+
+    print(sum(salaries) / len(salaries))
+
+\`\`\`
 
 Výsledek se zobrazí, ale funkce ho nevrací pro další práci.
 
 Pokud ho chceme dále používat:
 
-```python
+\`\`\`python
+
 def calculate_average(salaries):
-    average = sum(salaries) / len(salaries)
-    return average
-```
 
----
+    average = sum(salaries) / len(salaries)
 
-### Použití lokální proměnné mimo funkci
+    return average
 
-```python
+\`\`\`
+
+\---
+
+**### Použití lokální proměnné mimo funkci**
+
+\`\`\`python
+
 def calculate_tax(salary, tax_rate=0.15):
-    tax = salary * tax_rate
-    return tax
+
+    tax = salary \* tax_rate
+
+    return tax
 
 print(tax_rate)
-```
 
-`tax_rate` existuje jako parametr uvnitř funkce, ale mimo ni není automaticky dostupný.
+\`\`\`
 
----
+\`tax_rate\` existuje jako parametr uvnitř funkce, ale mimo ni není automaticky dostupný.
 
-### Desetinná čárka místo tečky
+\---
+
+**### Desetinná čárka místo tečky**
 
 Špatně:
 
-```python
-salary * 1,1
-```
+\`\`\`python
+
+salary \* 1,1
+
+\`\`\`
 
 Správně:
 
-```python
-salary * 1.1
-```
+\`\`\`python
 
----
+salary \* 1.1
 
-## 58. Shrnutí funkcí
+\`\`\`
 
-### Vytvoření funkce
+\---
 
-```python
+**## 58. Shrnutí funkcí**
+
+**### Vytvoření funkce**
+
+\`\`\`python
+
 def function_name():
-    ...
-```
 
-### Zavolání funkce
+    ...
 
-```python
+\`\`\`
+
+**### Zavolání funkce**
+
+\`\`\`python
+
 function_name()
-```
 
-### Parametr
+\`\`\`
 
-```python
+**### Parametr**
+
+\`\`\`python
+
 def function_name(value):
-    ...
-```
 
-### Argument
+    ...
 
-```python
+\`\`\`
+
+**### Argument**
+
+\`\`\`python
+
 function_name(50000)
-```
 
-### Více parametrů
+\`\`\`
 
-```python
+**### Více parametrů**
+
+\`\`\`python
+
 def employee_info(name, department):
-    ...
-```
 
-### Výchozí parametr
+    ...
 
-```python
+\`\`\`
+
+**### Výchozí parametr**
+
+\`\`\`python
+
 def calculate_tax(salary, tax_rate=0.15):
-    ...
-```
 
-### Vrácení výsledku
+    ...
 
-```python
+\`\`\`
+
+**### Vrácení výsledku**
+
+\`\`\`python
+
 return result
-```
 
-### Uložení vráceného výsledku
+\`\`\`
 
-```python
+**### Uložení vráceného výsledku**
+
+\`\`\`python
+
 result = function_name(value)
-```
 
-### Přímé použití výsledku
+\`\`\`
 
-```python
+**### Přímé použití výsledku**
+
+\`\`\`python
+
 print(function_name(value))
-```
 
-### Funkce volající jinou funkci
+\`\`\`
 
-```python
+**### Funkce volající jinou funkci**
+
+\`\`\`python
+
 def net_salary(salary, tax_rate=0.15):
-    tax = calculate_tax(salary, tax_rate)
-    return salary - tax
-```
 
-### Více podmínek
+    tax = calculate_tax(salary, tax_rate)
 
-```python
+    return salary - tax
+
+\`\`\`
+
+**### Více podmínek**
+
+\`\`\`python
+
 if condition:
-    ...
+
+    ...
+
 elif another_condition:
-    ...
+
+    ...
+
 else:
-    ...
-```
+
+    ...
+
+\`\`\`
 
 Nejdůležitější princip:
 
-```text
-def      → vytvořím funkci
-()       → zavolám funkci
+\`\`\`text
+
+def      → vytvořím funkci
+
+()       → zavolám funkci
+
 parametr → funkce přijme hodnotu
-return   → funkce vrátí výsledek
-print()  → výsledek zobrazím
-```
 
----
+return   → funkce vrátí výsledek
 
-# Lesson 05 — Working with Files
+print()  → výsledek zobrazím
 
-## 59. Otevření souboru — `open()`
+\`\`\`
+
+\---
+
+**# Lesson 05 — Working with Files**
+
+**## 59. Otevření souboru — \`open()\`**
 
 Soubor lze otevřít pomocí:
 
-```python
+\`\`\`python
+
 file = open("employees.txt")
-```
+
+\`\`\`
 
 Tím se soubor pouze otevře.
 
 Proměnná:
 
-```python
+\`\`\`python
+
 file
-```
+
+\`\`\`
 
 není obsah souboru. Je to objekt reprezentující otevřený soubor.
 
 Obsah načteme například pomocí:
 
-```python
+\`\`\`python
+
 content = file.read()
-```
 
----
+\`\`\`
 
-## 60. Načtení obsahu — `read()`
+\---
 
-```python
+**## 60. Načtení obsahu — \`read()\`**
+
+\`\`\`python
+
 file = open("employees.txt")
 
 content = file.read()
 
 print(content)
-```
 
-Pokud `employees.txt` obsahuje:
+\`\`\`
 
-```text
+Pokud \`employees.txt\` obsahuje:
+
+\`\`\`text
+
 Petr
-Jana
-Martin
-Eva
-```
 
-`content` bude jeden `str`.
+Jana
+
+Martin
+
+Eva
+
+\`\`\`
+
+\`content\` bude jeden \`str\`.
 
 Zjednodušeně:
 
-```text
+\`\`\`text
+
 employees.txt
+
 ↓
+
 open()
+
 ↓
+
 file
+
 ↓
+
 read()
+
 ↓
+
 content
-```
 
----
+\`\`\`
 
-## 61. Zavření souboru — `close()`
+\---
+
+**## 61. Zavření souboru — \`close()\`**
 
 Pokud soubor otevřeme pomocí:
 
-```python
+\`\`\`python
+
 file = open("employees.txt")
-```
+
+\`\`\`
 
 měli bychom ho po práci zavřít:
 
-```python
+\`\`\`python
+
 file.close()
-```
+
+\`\`\`
 
 Celý vzor:
 
-```python
+\`\`\`python
+
 file = open("employees.txt")
 
 content = file.read()
@@ -2436,46 +3345,64 @@ content = file.read()
 print(content)
 
 file.close()
-```
 
----
+\`\`\`
 
-## 62. Bezpečnější práce se soubory — `with open()`
+\---
+
+**## 62. Bezpečnější práce se soubory — \`with open()\`**
 
 Běžnější a bezpečnější způsob:
 
-```python
+\`\`\`python
+
 with open("employees.txt") as file:
-    content = file.read()
-    print(content)
-```
+
+    content = file.read()
+
+    print(content)
+
+\`\`\`
 
 Po skončení odsazeného bloku Python soubor automaticky zavře.
 
 Princip:
 
-```text
+\`\`\`text
+
 with open(...)
+
 ↓
+
 soubor je otevřený
+
 ↓
+
 odsazený blok s ním pracuje
+
 ↓
+
 konec bloku
+
 ↓
+
 soubor se automaticky zavře
-```
 
----
+\`\`\`
 
-## 63. Data po zavření souboru nezmizí
+\---
 
-```python
+**## 63. Data po zavření souboru nezmizí**
+
+\`\`\`python
+
 with open("employees.txt") as file:
-    content = file.read()
+
+    content = file.read()
 
 print(content)
-```
+
+\`\`\`
 
 Toto funguje.
 
@@ -2483,48 +3410,59 @@ Proč?
 
 Protože:
 
-```python
+\`\`\`python
+
 content = file.read()
-```
+
+\`\`\`
 
 už data načetl do paměti.
 
-Po skončení `with`:
+Po skončení \`with\`:
 
-```text
+\`\`\`text
+
 employees.txt → zavřený
-content       → stále existuje
-```
+
+content       → stále existuje
+
+\`\`\`
 
 Důležité:
 
-> Zavření souboru neznamená smazání dat, která už byla načtena do proměnné.
+\> Zavření souboru neznamená smazání dat, která už byla načtena do proměnné.
 
----
+\---
 
-## 64. Data v paměti vs. data na disku
+**## 64. Data v paměti vs. data na disku**
 
 Soubor:
 
-```text
+\`\`\`text
+
 employees.txt
-```
+
+\`\`\`
 
 je uložený na disku.
 
 Proměnná:
 
-```python
+\`\`\`python
+
 content
-```
+
+\`\`\`
 
 existuje během běhu programu v paměti.
 
 Například:
 
-```python
+\`\`\`python
+
 content.append("Karel")
-```
+
+\`\`\`
 
 změní pouze data v Pythonu.
 
@@ -2532,1377 +3470,2234 @@ Původní soubor se tím automaticky nezmění.
 
 Princip:
 
-```text
+\`\`\`text
+
 soubor na disku
+
 ↓
+
 načtení
+
 ↓
+
 data v paměti
+
 ↓
+
 úpravy
+
 ↓
+
 pokud je chceme zachovat
+
 ↓
+
 explicitní zápis do souboru
-```
 
----
+\`\`\`
 
-## 65. Aktuální pracovní složka — `os.getcwd()`
+\---
+
+**## 65. Aktuální pracovní složka — \`os.getcwd()\`**
 
 Python při relativní cestě:
 
-```python
+\`\`\`python
+
 open("employees.txt")
-```
+
+\`\`\`
 
 hledá soubor v aktuální pracovní složce.
 
 Zjistit ji můžeme:
 
-```python
+\`\`\`python
+
 import os
 
 print(os.getcwd())
-```
+
+\`\`\`
 
 Například:
 
-```text
-C:\Users\...\python
-```
+\`\`\`text
+
+C:\Users\\...\python
+
+\`\`\`
 
 Pak:
 
-```python
+\`\`\`python
+
 open("employees.txt")
-```
+
+\`\`\`
 
 znamená prakticky:
 
-```text
-C:\Users\...\python\employees.txt
-```
+\`\`\`text
 
----
+C:\Users\\...\python\employees.txt
 
-## 66. Relativní cesta k souboru
+\`\`\`
+
+\---
+
+**## 66. Relativní cesta k souboru**
 
 Soubor ve stejné pracovní složce:
 
-```python
+\`\`\`python
+
 open("employees.txt")
-```
+
+\`\`\`
 
 Soubor v podsložce:
 
-```python
+\`\`\`python
+
 open("data/employees.txt")
-```
+
+\`\`\`
 
 Příklad struktury:
 
-```text
+\`\`\`text
+
 python/
+
 ├── lesson_05.py
+
 └── data/
-    └── employees.txt
-```
+
+    └── employees.txt
+
+\`\`\`
 
 Pak použijeme:
 
-```python
+\`\`\`python
+
 open("data/employees.txt")
-```
 
----
+\`\`\`
 
-## 67. Proč je název souboru v uvozovkách
+\---
 
-```python
+**## 67. Proč je název souboru v uvozovkách**
+
+\`\`\`python
+
 open("employees.txt")
-```
 
-`"employees.txt"` je textová hodnota typu `str`.
+\`\`\`
+
+\`"employees.txt"\` je textová hodnota typu \`str\`.
 
 Stejně jako:
 
-```python
+\`\`\`python
+
 name = "Petr"
-```
+
+\`\`\`
 
 můžeme použít proměnnou:
 
-```python
+\`\`\`python
+
 file_name = "employees.txt"
 
 with open(file_name) as file:
-    ...
-```
+
+    ...
+
+\`\`\`
 
 Rozdíl:
 
-```text
+\`\`\`text
+
 "employees.txt" → konkrétní text
-file_name       → proměnná obsahující text
-```
 
----
+file_name       → proměnná obsahující text
 
-## 68. `splitlines()` — řádky textu jako list
+\`\`\`
+
+\---
+
+**## 68. \`splitlines()\` — řádky textu jako list**
 
 Pokud:
 
-```python
+\`\`\`python
+
 content = file.read()
-```
 
-vrací jeden `str`, můžeme řádky rozdělit:
+\`\`\`
 
-```python
+vrací jeden \`str\`, můžeme řádky rozdělit:
+
+\`\`\`python
+
 content = file.read().splitlines()
-```
+
+\`\`\`
 
 Například:
 
-```text
+\`\`\`text
+
 Petr
+
 Jana
+
 Martin
+
 Eva
-```
+
+\`\`\`
 
 se změní na:
 
-```python
+\`\`\`python
+
 ["Petr", "Jana", "Martin", "Eva"]
-```
+
+\`\`\`
 
 Datové typy:
 
-```python
-type(content)     # list
-type(content[0])  # str
-```
+\`\`\`python
 
----
+type(content)     # list
 
-## 69. Procházení načteného textu pomocí `for`
+type(content[0])  # str
+
+\`\`\`
+
+\---
+
+**## 69. Procházení načteného textu pomocí \`for\`**
 
 Pokud:
 
-```python
+\`\`\`python
+
 content = ["Petr", "Jana", "Martin", "Eva"]
-```
+
+\`\`\`
 
 můžeme:
 
-```python
+\`\`\`python
+
 for name in content:
-    print(name)
-```
+
+    print(name)
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Petr
+
 Jana
+
 Martin
+
 Eva
-```
+
+\`\`\`
 
 Pozor:
 
-```python
+\`\`\`python
+
 for name in content:
-    print(content)
-```
+
+    print(content)
+
+\`\`\`
 
 vypíše celý list při každém průchodu.
 
 Správně:
 
-```python
+\`\`\`python
+
 for name in content:
-    print(name)
-```
 
----
+    print(name)
 
-## 70. Filtrování načtených dat
+\`\`\`
+
+\---
+
+**## 70. Filtrování načtených dat**
 
 Například jména delší než 4 znaky:
 
-```python
+\`\`\`python
+
 for name in content:
-    if len(name) > 4:
-        print(name)
-```
+
+    if len(name) > 4:
+
+        print(name)
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Martin
-```
 
----
+\`\`\`
 
-## 71. Počítání filtrovaných záznamů
+\---
 
-```python
+**## 71. Počítání filtrovaných záznamů**
+
+\`\`\`python
+
 count = 0
 
 for name in content:
-    if len(name) > 4:
-        count = count + 1
+
+    if len(name) > 4:
+
+        count = count + 1
 
 print("Employees with long names:", count)
-```
+
+\`\`\`
 
 Důležité:
 
-```python
+\`\`\`python
+
 count = 0
-```
+
+\`\`\`
 
 musíme vytvořit před použitím.
 
-Python sám neví, že proměnná `count` má být počítadlo.
+Python sám neví, že proměnná \`count\` má být počítadlo.
 
----
+\---
 
-## 72. CSV — základní struktura
+**## 72. CSV — základní struktura**
 
 CSV = Comma-Separated Values.
 
 Příklad:
 
-```csv
+\`\`\`csv
+
 name,department,salary
+
 Petr,Sales,50000
+
 Jana,IT,65000
+
 Martin,Finance,48000
+
 Eva,Sales,72000
-```
+
+\`\`\`
 
 První řádek:
 
-```text
+\`\`\`text
+
 name,department,salary
-```
+
+\`\`\`
 
 je hlavička.
 
 Další řádky jsou datové záznamy.
 
----
+\---
 
-## 73. Mezery v CSV
+**## 73. Mezery v CSV**
 
 Běžný zápis:
 
-```csv
+\`\`\`csv
+
 Petr,Sales,50000
-```
+
+\`\`\`
 
 Pokud napíšeme:
 
-```csv
+\`\`\`csv
+
 Petr, Sales, 50000
-```
+
+\`\`\`
 
 mezery mohou být součástí hodnot:
 
-```text
+\`\`\`text
+
 "Petr"
+
 " Sales"
+
 " 50000"
-```
+
+\`\`\`
 
 To může způsobit problém například při:
 
-```python
+\`\`\`python
+
 if department == "Sales":
-```
+
+\`\`\`
 
 protože:
 
-```text
+\`\`\`text
+
 "Sales" != " Sales"
-```
 
----
+\`\`\`
 
-## 74. Načtení CSV jako obyčejného textu
+\---
 
-```python
+**## 74. Načtení CSV jako obyčejného textu**
+
+\`\`\`python
+
 with open("employees.csv") as file:
-    content = file.read()
+
+    content = file.read()
 
 print(content)
-```
 
-Výsledek je stále jeden `str`.
+\`\`\`
 
-Samotné `open()` nerozumí tomu, že CSV obsahuje sloupce.
+Výsledek je stále jeden \`str\`.
 
----
+Samotné \`open()\` nerozumí tomu, že CSV obsahuje sloupce.
 
-## 75. Modul `csv`
+\---
+
+**## 75. Modul \`csv\`**
 
 Pro práci s CSV:
 
-```python
+\`\`\`python
+
 import csv
-```
 
----
+\`\`\`
 
-## 76. `csv.reader()`
+\---
 
-```python
+**## 76. \`csv.reader()\`**
+
+\`\`\`python
+
 with open("employees.csv") as file:
-    reader = csv.reader(file)
 
-    for row in reader:
-        print(row)
-```
+    reader = csv.reader(file)
+
+    for row in reader:
+
+        print(row)
+
+\`\`\`
 
 Výstup:
 
-```python
+\`\`\`python
+
 ['name', 'department', 'salary']
+
 ['Petr', 'Sales', '50000']
+
 ['Jana', 'IT', '65000']
+
 ['Martin', 'Finance', '48000']
+
 ['Eva', 'Sales', '72000']
-```
 
-Každý `row` je list.
+\`\`\`
 
----
+Každý \`row\` je list.
 
-## 77. Přístup ke sloupcům pomocí indexu
+\---
+
+**## 77. Přístup ke sloupcům pomocí indexu**
 
 Například:
 
-```python
+\`\`\`python
+
 row = ['Petr', 'Sales', '50000']
-```
+
+\`\`\`
 
 Pak:
 
-```python
-row[0]  # Petr
-row[1]  # Sales
-row[2]  # 50000
-```
+\`\`\`python
+
+row[0]  # Petr
+
+row[1]  # Sales
+
+row[2]  # 50000
+
+\`\`\`
 
 Důležité:
 
-```python
+\`\`\`python
+
 for row in reader:
-```
+
+\`\`\`
 
 postupuje po řádcích.
 
-```python
+\`\`\`python
+
 row[1]
-```
+
+\`\`\`
 
 vybírá druhou hodnotu z aktuálního řádku.
 
----
+\---
 
-## 78. CSV hodnoty se načítají jako `str`
+**## 78. CSV hodnoty se načítají jako \`str\`**
 
 Například:
 
-```python
+\`\`\`python
+
 row[2]
-```
+
+\`\`\`
 
 obsahuje:
 
-```python
-"50000"
-```
+\`\`\`python
 
-tedy `str`.
+"50000"
+
+\`\`\`
+
+tedy \`str\`.
 
 Pro výpočty:
 
-```python
+\`\`\`python
+
 row[2] = int(row[2])
-```
+
+\`\`\`
 
 Pak:
 
-```python
+\`\`\`python
+
 row[2]
-```
+
+\`\`\`
 
 je:
 
-```python
+\`\`\`python
+
 50000
-```
 
-tedy `int`.
+\`\`\`
 
----
+tedy \`int\`.
 
-## 79. Hlavička a problém s převodem
+\---
+
+**## 79. Hlavička a problém s převodem**
 
 První řádek CSV:
 
-```python
+\`\`\`python
+
 ['name', 'department', 'salary']
-```
+
+\`\`\`
 
 Pokud zkusíme:
 
-```python
+\`\`\`python
+
 int(row[2])
-```
+
+\`\`\`
 
 na prvním řádku, Python se pokusí udělat:
 
-```python
+\`\`\`python
+
 int("salary")
-```
+
+\`\`\`
 
 což skončí chybou.
 
----
+\---
 
-## 80. Přeskočení hlavičky pomocí `next()`
+**## 80. Přeskočení hlavičky pomocí \`next()\`**
 
-```python
+\`\`\`python
+
 with open("employees.csv") as file:
-    reader = csv.reader(file)
 
-    next(reader)
+    reader = csv.reader(file)
 
-    for row in reader:
-        row[2] = int(row[2])
-        print(row[2])
-```
+    next(reader)
 
-`next(reader)` vezme další řádek a posune reader dál.
+    for row in reader:
+
+        row[2] = int(row[2])
+
+        print(row[2])
+
+\`\`\`
+
+\`next(reader)\` vezme další řádek a posune reader dál.
 
 V tomto případě spotřebuje hlavičku.
 
 Důležité:
 
-> `next()` obecně neznamená „přeskoč hlavičku“. Znamená „vezmi další položku“.
+\> \`next()\` obecně neznamená „přeskoč hlavičku“. Znamená „vezmi další položku“.
 
----
+\---
 
-## 81. Uložení hodnot z CSV do listu
+**## 81. Uložení hodnot z CSV do listu**
 
-```python
+\`\`\`python
+
 salaries = []
 
 with open("employees.csv") as file:
-    reader = csv.reader(file)
 
-    next(reader)
+    reader = csv.reader(file)
 
-    for row in reader:
-        row[2] = int(row[2])
-        salaries.append(row[2])
-```
+    next(reader)
+
+    for row in reader:
+
+        row[2] = int(row[2])
+
+        salaries.append(row[2])
+
+\`\`\`
 
 Výsledek:
 
-```python
+\`\`\`python
+
 [50000, 65000, 48000, 72000]
-```
 
----
+\`\`\`
 
-## 82. Použití funkce nad daty z CSV
+\---
 
-```python
+**## 82. Použití funkce nad daty z CSV**
+
+\`\`\`python
+
 def average_salary(salaries):
-    average_salary = round(sum(salaries) / len(salaries), 2)
-    return average_salary
+
+    average_salary = round(sum(salaries) / len(salaries), 2)
+
+    return average_salary
 
 result = average_salary(salaries)
 
 print("Average salary is:", result, "Kc")
-```
+
+\`\`\`
 
 Důležitý tok:
 
-```text
+\`\`\`text
+
 CSV
+
 ↓
+
 reader
+
 ↓
+
 salary str → int
+
 ↓
+
 list salaries
+
 ↓
+
 funkce
+
 ↓
+
 return
+
 ↓
+
 result
+
 ↓
+
 print
-```
 
----
+\`\`\`
 
-## 83. `csv.DictReader()`
+\---
+
+**## 83. \`csv.DictReader()\`**
 
 Přehlednější způsob:
 
-```python
-with open("employees.csv") as file:
-    reader = csv.DictReader(file)
+\`\`\`python
 
-    for row in reader:
-        print(row)
-```
+with open("employees.csv") as file:
+
+    reader = csv.DictReader(file)
+
+    for row in reader:
+
+        print(row)
+
+\`\`\`
 
 Výsledek:
 
-```python
-{
-    "name": "Petr",
-    "department": "Sales",
-    "salary": "50000"
-}
-```
+\`\`\`python
 
-`DictReader` použije první řádek CSV jako názvy klíčů.
+{
+
+    "name": "Petr",
+
+    "department": "Sales",
+
+    "salary": "50000"
+
+}
+
+\`\`\`
+
+\`DictReader\` použije první řádek CSV jako názvy klíčů.
 
 Proto není potřeba:
 
-```python
+\`\`\`python
+
 next(reader)
-```
 
----
+\`\`\`
 
-## 84. Přístup přes názvy sloupců
+\---
+
+**## 84. Přístup přes názvy sloupců**
 
 Místo:
 
-```python
+\`\`\`python
+
 row[0]
+
 row[1]
+
 row[2]
-```
+
+\`\`\`
 
 můžeme:
 
-```python
+\`\`\`python
+
 row["name"]
+
 row["department"]
+
 row["salary"]
-```
+
+\`\`\`
 
 To je přehlednější a čitelnější.
 
----
+\---
 
-## 85. `DictReader` a datové typy
+**## 85. \`DictReader\` a datové typy**
 
-I při použití `DictReader` jsou hodnoty z CSV text:
+I při použití \`DictReader\` jsou hodnoty z CSV text:
 
-```python
-row["salary"]  # str
-```
+\`\`\`python
+
+row["salary"]  # str
+
+\`\`\`
 
 Proto:
 
-```python
+\`\`\`python
+
 row["salary"] = int(row["salary"])
-```
+
+\`\`\`
 
 Pak je v aktuálním dictionary:
 
-```python
+\`\`\`python
+
 {
-    "name": "Petr",
-    "department": "Sales",
-    "salary": 50000
+
+    "name": "Petr",
+
+    "department": "Sales",
+
+    "salary": 50000
+
 }
-```
 
----
+\`\`\`
 
-## 86. Reader a otevřený soubor
+\---
+
+**## 86. Reader a otevřený soubor**
 
 Toto nefunguje:
 
-```python
+\`\`\`python
+
 with open("employees.csv") as file:
-    reader = csv.DictReader(file)
+
+    reader = csv.DictReader(file)
 
 for row in reader:
-    print(row)
-```
 
-Po skončení `with` je soubor zavřený.
+    print(row)
 
-`reader` ale data čte postupně ze souboru až během `for`.
+\`\`\`
+
+Po skončení \`with\` je soubor zavřený.
+
+\`reader\` ale data čte postupně ze souboru až během \`for\`.
 
 Proto musí být cyklus uvnitř:
 
-```python
+\`\`\`python
+
 with open("employees.csv") as file:
-    reader = csv.DictReader(file)
 
-    for row in reader:
-        print(row)
-```
+    reader = csv.DictReader(file)
 
----
+    for row in reader:
 
-## 87. Rozdíl mezi `reader` a načtenými daty
+        print(row)
 
-Toto funguje mimo `with`:
+\`\`\`
 
-```python
+\---
+
+**## 87. Rozdíl mezi \`reader\` a načtenými daty**
+
+Toto funguje mimo \`with\`:
+
+\`\`\`python
+
 with open("employees.json") as file:
-    employees = json.load(file)
+
+    employees = json.load(file)
 
 for employee in employees:
-    ...
-```
 
-Protože `employees` už obsahuje data v paměti.
+    ...
 
-U `reader` je situace jiná:
+\`\`\`
 
-```text
+Protože \`employees\` už obsahuje data v paměti.
+
+U \`reader\` je situace jiná:
+
+\`\`\`text
+
 reader → čte soubor postupně
+
 employees → už načtená data
-```
 
----
+\`\`\`
 
-## 88. Filtrování CSV přes `DictReader`
+\---
 
-```python
+**## 88. Filtrování CSV přes \`DictReader\`**
+
+\`\`\`python
+
 with open("employees.csv") as file:
-    reader = csv.DictReader(file)
 
-    for row in reader:
-        row["salary"] = int(row["salary"])
+    reader = csv.DictReader(file)
 
-        if row["salary"] > 60000:
-            print(row["name"], row["salary"])
-```
+    for row in reader:
+
+        row["salary"] = int(row["salary"])
+
+        if row["salary"] > 60000:
+
+            print(row["name"], row["salary"])
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Jana 65000
+
 Eva 72000
-```
 
----
+\`\`\`
 
-## 89. Uložení celých dictionaries do listu
+\---
 
-```python
+**## 89. Uložení celých dictionaries do listu**
+
+\`\`\`python
+
 high_salary_employees = []
 
 with open("employees.csv") as file:
-    reader = csv.DictReader(file)
 
-    for employee in reader:
-        employee["salary"] = int(employee["salary"])
+    reader = csv.DictReader(file)
 
-        if employee["salary"] > 60000:
-            high_salary_employees.append(employee)
-```
+    for employee in reader:
+
+        employee["salary"] = int(employee["salary"])
+
+        if employee["salary"] > 60000:
+
+            high_salary_employees.append(employee)
+
+\`\`\`
 
 Výsledek:
 
-```python
+\`\`\`python
+
 [
-    {"name": "Jana", "department": "IT", "salary": 65000},
-    {"name": "Eva", "department": "Sales", "salary": 72000}
+
+    {"name": "Jana", "department": "IT", "salary": 65000},
+
+    {"name": "Eva", "department": "Sales", "salary": 72000}
+
 ]
-```
+
+\`\`\`
 
 Rozdíl:
 
-```python
+\`\`\`python
+
 high_salary_employees.append(employee["salary"])
-```
+
+\`\`\`
 
 uloží jen mzdy.
 
-```python
+\`\`\`python
+
 high_salary_employees.append(employee)
-```
+
+\`\`\`
 
 uloží celý dictionary.
 
----
+\---
 
-## 90. Vytvoření nového CSV souboru
+**## 90. Vytvoření nového CSV souboru**
 
-```python
+\`\`\`python
+
 with open("high_salary_employees.csv", "w", newline="") as file:
-    pass
-```
 
-`"w"` znamená write.
+    pass
+
+\`\`\`
+
+\`"w"\` znamená write.
 
 Pokud soubor neexistuje, Python ho vytvoří.
 
 Pozor:
 
-> `"w"` přepíše existující obsah souboru.
+\> \`"w"\` přepíše existující obsah souboru.
 
----
+\---
 
-## 91. `csv.DictWriter()`
+**## 91. \`csv.DictWriter()\`**
 
-```python
+\`\`\`python
+
 with open("high_salary_employees.csv", "w", newline="") as file:
-    writer = csv.DictWriter(
-        file,
-        fieldnames=["name", "department", "salary"]
-    )
-```
 
-`fieldnames` určuje názvy sloupců.
+    writer = csv.DictWriter(
 
----
+        file,
 
-## 92. Zápis hlavičky — `writeheader()`
+        fieldnames=["name", "department", "salary"]
 
-```python
+    )
+
+\`\`\`
+
+\`fieldnames\` určuje názvy sloupců.
+
+\---
+
+**## 92. Zápis hlavičky — \`writeheader()\`**
+
+\`\`\`python
+
 writer.writeheader()
-```
+
+\`\`\`
 
 Zapíše:
 
-```csv
+\`\`\`csv
+
 name,department,salary
-```
 
----
+\`\`\`
 
-## 93. Zápis více dictionaries — `writerows()`
+\---
 
-```python
+**## 93. Zápis více dictionaries — \`writerows()\`**
+
+\`\`\`python
+
 writer.writerows(high_salary_employees)
-```
+
+\`\`\`
 
 Celý zápis:
 
-```python
-with open("high_salary_employees.csv", "w", newline="") as file:
-    writer = csv.DictWriter(
-        file,
-        fieldnames=["name", "department", "salary"]
-    )
+\`\`\`python
 
-    writer.writeheader()
-    writer.writerows(high_salary_employees)
-```
+with open("high_salary_employees.csv", "w", newline="") as file:
+
+    writer = csv.DictWriter(
+
+        file,
+
+        fieldnames=["name", "department", "salary"]
+
+    )
+
+    writer.writeheader()
+
+    writer.writerows(high_salary_employees)
+
+\`\`\`
 
 Výsledný CSV:
 
-```csv
+\`\`\`csv
+
 name,department,salary
+
 Jana,IT,65000
+
 Eva,Sales,72000
-```
 
----
+\`\`\`
 
-## 94. `print()` vs. zápis do souboru
+\---
 
-```python
+**## 94. \`print()\` vs. zápis do souboru**
+
+\`\`\`python
+
 print(data)
-```
+
+\`\`\`
 
 zobrazí data v terminálu.
 
-```python
+\`\`\`python
+
 writer.writerows(data)
-```
+
+\`\`\`
 
 zapíše data do CSV.
 
 Důležité:
 
-```text
-print()              → terminál
+\`\`\`text
+
+print()              → terminál
+
 writer.writeheader() → hlavička do CSV
-writer.writerows()   → data do CSV
-```
 
----
+writer.writerows()   → data do CSV
 
-## 95. CSV neuchovává Python datové typy
+\`\`\`
+
+\---
+
+**## 95. CSV neuchovává Python datové typy**
 
 V CSV:
 
-```csv
+\`\`\`csv
+
 Jana,IT,65000
-```
+
+\`\`\`
 
 je vše uloženo jako textový formát.
 
-Po novém načtení přes `csv.DictReader`:
+Po novém načtení přes \`csv.DictReader\`:
 
-```python
+\`\`\`python
+
 row["salary"]
-```
+
+\`\`\`
 
 bude znovu:
 
-```python
-"65000"
-```
+\`\`\`python
 
-tedy `str`.
+"65000"
+
+\`\`\`
+
+tedy \`str\`.
 
 Pokud chceme počítat:
 
-```python
+\`\`\`python
+
 row["salary"] = int(row["salary"])
-```
 
----
+\`\`\`
 
-## 96. JSON — základní struktura
+\---
+
+**## 96. JSON — základní struktura**
 
 Příklad:
 
-```json
+\`\`\`json
+
 [
-    {
-        "name": "Petr",
-        "department": "Sales",
-        "salary": 50000
-    },
-    {
-        "name": "Jana",
-        "department": "IT",
-        "salary": 65000
-    }
+
+    {
+
+        "name": "Petr",
+
+        "department": "Sales",
+
+        "salary": 50000
+
+    },
+
+    {
+
+        "name": "Jana",
+
+        "department": "IT",
+
+        "salary": 65000
+
+    }
+
 ]
-```
+
+\`\`\`
 
 Celá struktura připomíná:
 
-```text
+\`\`\`text
+
 list
+
 ↓
+
 dictionary
+
 ↓
+
 hodnoty
-```
 
----
+\`\`\`
 
-## 97. Modul `json`
+\---
 
-```python
+**## 97. Modul \`json\`**
+
+\`\`\`python
+
 import json
-```
 
----
+\`\`\`
 
-## 98. Načtení JSON — `json.load()`
+\---
 
-```python
+**## 98. Načtení JSON — \`json.load()\`**
+
+\`\`\`python
+
 with open("employees.json") as file:
-    employees = json.load(file)
-```
 
-`employees` může být například:
+    employees = json.load(file)
 
-```python
+\`\`\`
+
+\`employees\` může být například:
+
+\`\`\`python
+
 [
-    {"name": "Petr", "department": "Sales", "salary": 50000},
-    {"name": "Jana", "department": "IT", "salary": 65000}
+
+    {"name": "Petr", "department": "Sales", "salary": 50000},
+
+    {"name": "Jana", "department": "IT", "salary": 65000}
+
 ]
-```
 
----
+\`\`\`
 
-## 99. JSON zachovává číselné hodnoty
+\---
+
+**## 99. JSON zachovává číselné hodnoty**
 
 V JSON:
 
-```json
+\`\`\`json
+
 "salary": 50000
-```
+
+\`\`\`
 
 bez uvozovek znamená číslo.
 
 Po načtení:
 
-```python
+\`\`\`python
+
 employees[0]["salary"]
-```
+
+\`\`\`
 
 bude:
 
-```python
+\`\`\`python
+
 50000
-```
+
+\`\`\`
 
 a typ:
 
-```python
+\`\`\`python
+
 int
-```
+
+\`\`\`
 
 Na rozdíl od CSV tedy často nemusíme dělat:
 
-```python
+\`\`\`python
+
 int(employee["salary"])
-```
 
----
+\`\`\`
 
-## 100. Přístup k datům z JSON
+\---
+
+**## 100. Přístup k datům z JSON**
 
 Pokud:
 
-```python
+\`\`\`python
+
 employees
-```
+
+\`\`\`
 
 je list dictionaries:
 
-```python
+\`\`\`python
+
 employees[0]
-```
+
+\`\`\`
 
 je první dictionary.
 
-```python
+\`\`\`python
+
 employees[0]["salary"]
-```
+
+\`\`\`
 
 je plat prvního zaměstnance.
 
 Důležité:
 
-```python
-employees["salary"]
-```
+\`\`\`python
 
-nefunguje, protože `employees` je list.
+employees["salary"]
+
+\`\`\`
+
+nefunguje, protože \`employees\` je list.
 
 List používá indexy:
 
-```python
+\`\`\`python
+
 employees[0]
-```
+
+\`\`\`
 
 Dictionary používá klíče:
 
-```python
+\`\`\`python
+
 employee["salary"]
-```
 
----
+\`\`\`
 
-## 101. Procházení JSON dat
+\---
 
-```python
+**## 101. Procházení JSON dat**
+
+\`\`\`python
+
 for employee in employees:
-    print(employee["name"], employee["salary"])
-```
+
+    print(employee["name"], employee["salary"])
+
+\`\`\`
 
 Výstup:
 
-```text
+\`\`\`text
+
 Petr 50000
+
 Jana 65000
+
 Martin 48000
+
 Eva 72000
-```
 
----
+\`\`\`
 
-## 102. Filtrování JSON dat
+\---
 
-```python
+**## 102. Filtrování JSON dat**
+
+\`\`\`python
+
 high_salary_employees = []
 
 for employee in employees:
-    if employee["salary"] > 60000:
-        high_salary_employees.append(employee)
-```
+
+    if employee["salary"] > 60000:
+
+        high_salary_employees.append(employee)
+
+\`\`\`
 
 Výsledek:
 
-```python
+\`\`\`python
+
 [
-    {"name": "Jana", "department": "IT", "salary": 65000},
-    {"name": "Eva", "department": "Sales", "salary": 72000}
+
+    {"name": "Jana", "department": "IT", "salary": 65000},
+
+    {"name": "Eva", "department": "Sales", "salary": 72000}
+
 ]
-```
 
----
+\`\`\`
 
-## 103. Zápis JSON — `json.dump()`
+\---
 
-```python
+**## 103. Zápis JSON — \`json.dump()\`**
+
+\`\`\`python
+
 with open("high_salary_employees.json", "w") as file:
-    json.dump(high_salary_employees, file)
-```
+
+    json.dump(high_salary_employees, file)
+
+\`\`\`
 
 Pomůcka:
 
-```text
-load  → načti
-dump  → ulož
-```
+\`\`\`text
 
----
+load  → načti
 
-## 104. Formátovaný JSON — `indent=4`
+dump  → ulož
+
+\`\`\`
+
+\---
+
+**## 104. Formátovaný JSON — \`indent=4\`**
 
 Bez:
 
-```python
+\`\`\`python
+
 json.dump(data, file)
-```
+
+\`\`\`
 
 se JSON může uložit na jeden řádek.
 
 Přehlednější zápis:
 
-```python
+\`\`\`python
+
 json.dump(data, file, indent=4)
-```
+
+\`\`\`
 
 Výsledek:
 
-```json
+\`\`\`json
+
 [
-    {
-        "name": "Jana",
-        "department": "IT",
-        "salary": 65000
-    },
-    {
-        "name": "Eva",
-        "department": "Sales",
-        "salary": 72000
-    }
+
+    {
+
+        "name": "Jana",
+
+        "department": "IT",
+
+        "salary": 65000
+
+    },
+
+    {
+
+        "name": "Eva",
+
+        "department": "Sales",
+
+        "salary": 72000
+
+    }
+
 ]
-```
 
----
+\`\`\`
 
-## 105. CSV vs. JSON
+\---
 
-### CSV
+**## 105. CSV vs. JSON**
 
-```text
+**### CSV**
+
+\`\`\`text
+
 name,department,salary
+
 Petr,Sales,50000
-```
+
+\`\`\`
 
 Výhody:
 
-- jednoduchý tabulkový formát,
-- běžný v analytice,
-- dobře se otevírá v Excelu,
-- vhodný pro řádky a sloupce.
+\- jednoduchý tabulkový formát,
+
+\- běžný v analytice,
+
+\- dobře se otevírá v Excelu,
+
+\- vhodný pro řádky a sloupce.
 
 Nevýhody:
 
-- hodnoty se při práci přes modul `csv` běžně načítají jako text,
-- neumí přirozeně složitější vnořenou strukturu.
+\- hodnoty se při práci přes modul \`csv\` běžně načítají jako text,
 
-### JSON
+\- neumí přirozeně složitější vnořenou strukturu.
 
-```json
+**### JSON**
+
+\`\`\`json
+
 {
-    "name": "Petr",
-    "department": "Sales",
-    "salary": 50000
+
+    "name": "Petr",
+
+    "department": "Sales",
+
+    "salary": 50000
+
 }
-```
+
+\`\`\`
 
 Výhody:
 
-- přirozeně odpovídá listům a dictionaries,
-- zachovává číselné hodnoty,
-- umí složitější strukturu,
-- často se používá v API.
+\- přirozeně odpovídá listům a dictionaries,
 
----
+\- zachovává číselné hodnoty,
 
-## 106. Praktický tok práce se soubory
+\- umí složitější strukturu,
+
+\- často se používá v API.
+
+\---
+
+**## 106. Praktický tok práce se soubory**
 
 Obecný vzor:
 
-```text
+\`\`\`text
+
 soubor na disku
+
 ↓
+
 open()
+
 ↓
+
 načtení
+
 ↓
+
 data v Pythonu
+
 ↓
+
 čištění / filtrování / výpočty
+
 ↓
+
 výsledná data
+
 ↓
+
 uložení do nového souboru
-```
+
+\`\`\`
 
 Příklad:
 
-```text
+\`\`\`text
+
 employees.csv
+
 ↓
+
 DictReader
+
 ↓
+
 salary str → int
+
 ↓
+
 if salary > 60000
+
 ↓
+
 high_salary_employees
+
 ↓
+
 DictWriter
+
 ↓
+
 high_salary_employees.csv
-```
+
+\`\`\`
 
 Nebo:
 
-```text
+\`\`\`text
+
 employees.json
+
 ↓
+
 json.load()
+
 ↓
+
 list dictionaries
+
 ↓
+
 if salary > 60000
+
 ↓
+
 high_salary_employees
+
 ↓
+
 json.dump()
+
 ↓
+
 high_salary_employees.json
-```
 
----
+\`\`\`
 
-## 107. Nejčastější chyby při práci se soubory
+\---
 
-### Práce s readerem po zavření souboru
+**## 107. Nejčastější chyby při práci se soubory**
+
+**### Práce s readerem po zavření souboru**
 
 Špatně:
 
-```python
+\`\`\`python
+
 with open("employees.csv") as file:
-    reader = csv.DictReader(file)
+
+    reader = csv.DictReader(file)
 
 for row in reader:
-    print(row)
-```
+
+    print(row)
+
+\`\`\`
 
 Chyba:
 
-```text
+\`\`\`text
+
 ValueError: I/O operation on closed file
-```
+
+\`\`\`
 
 Správně:
 
-```python
+\`\`\`python
+
 with open("employees.csv") as file:
-    reader = csv.DictReader(file)
 
-    for row in reader:
-        print(row)
-```
+    reader = csv.DictReader(file)
 
----
+    for row in reader:
 
-### Pokus o použití klíče na listu
+        print(row)
+
+\`\`\`
+
+\---
+
+**### Pokus o použití klíče na listu**
 
 Špatně:
 
-```python
-high_salary_employees["name"]
-```
+\`\`\`python
 
-pokud `high_salary_employees` je list.
+high_salary_employees["name"]
+
+\`\`\`
+
+pokud \`high_salary_employees\` je list.
 
 Správně například:
 
-```python
+\`\`\`python
+
 high_salary_employees[0]["name"]
-```
+
+\`\`\`
 
 nebo:
 
-```python
+\`\`\`python
+
 for employee in high_salary_employees:
-    print(employee["name"])
-```
 
----
+    print(employee["name"])
 
-### Zapomenutý převod CSV hodnoty na číslo
+\`\`\`
 
-```python
+\---
+
+**### Zapomenutý převod CSV hodnoty na číslo**
+
+\`\`\`python
+
 row["salary"]
-```
 
-je po `DictReader` obvykle `str`.
+\`\`\`
+
+je po \`DictReader\` obvykle \`str\`.
 
 Pro výpočty:
 
-```python
+\`\`\`python
+
 row["salary"] = int(row["salary"])
-```
 
----
+\`\`\`
 
-### Zapomenutý `next(reader)` u `csv.reader()`
+\---
+
+**### Zapomenutý \`next(reader)\` u \`csv.reader()\`**
 
 Pokud chceme přeskočit hlavičku:
 
-```python
+\`\`\`python
+
 reader = csv.reader(file)
+
 next(reader)
-```
 
----
+\`\`\`
 
-### Zbytečný `next(reader)` u `DictReader`
+\---
 
-```python
+**### Zbytečný \`next(reader)\` u \`DictReader\`**
+
+\`\`\`python
+
 reader = csv.DictReader(file)
-```
+
+\`\`\`
 
 už hlavičku použije jako názvy klíčů.
 
 Pokud pak ještě uděláme:
 
-```python
+\`\`\`python
+
 next(reader)
-```
+
+\`\`\`
 
 zahodíme první datový řádek.
 
----
+\---
 
-### `print()` místo zápisu
+**### \`print()\` místo zápisu**
 
-```python
+\`\`\`python
+
 print(data)
-```
+
+\`\`\`
 
 nezapisuje do souboru.
 
 Pro CSV:
 
-```python
+\`\`\`python
+
 writer.writerows(data)
-```
+
+\`\`\`
 
 Pro JSON:
 
-```python
+\`\`\`python
+
 json.dump(data, file)
+
+\`\`\`
+
+\---
+
+**## 108. Shrnutí práce se soubory**
+
+**### TXT**
+
+\`\`\`python
+
+with open("employees.txt") as file:
+
+    content = file.read()
+
+\`\`\`
+
+**### TXT jako list řádků**
+
+\`\`\`python
+
+with open("employees.txt") as file:
+
+    content = file.read().splitlines()
+
+\`\`\`
+
+**### CSV jako listy**
+
+\`\`\`python
+
+with open("employees.csv") as file:
+
+    reader = csv.reader(file)
+
+\`\`\`
+
+**### CSV jako dictionaries**
+
+\`\`\`python
+
+with open("employees.csv") as file:
+
+    reader = csv.DictReader(file)
+
+\`\`\`
+
+**### Převod mzdy z CSV**
+
+\`\`\`python
+
+employee["salary"] = int(employee["salary"])
+
+\`\`\`
+
+**### Zápis CSV**
+
+\`\`\`python
+
+with open("output.csv", "w", newline="") as file:
+
+    writer = csv.DictWriter(
+
+        file,
+
+        fieldnames=["name", "department", "salary"]
+
+    )
+
+    writer.writeheader()
+
+    writer.writerows(data)
+
+\`\`\`
+
+**### Načtení JSON**
+
+\`\`\`python
+
+with open("employees.json") as file:
+
+    employees = json.load(file)
+
+\`\`\`
+
+**### Zápis JSON**
+
+\`\`\`python
+
+with open("output.json", "w") as file:
+
+    json.dump(employees, file, indent=4)
+
+\`\`\`
+
+Nejdůležitější princip:
+
+\`\`\`text
+
+soubor
+
+↓
+
+načíst
+
+↓
+
+pracovat s daty v Pythonu
+
+↓
+
+výsledek
+
+↓
+
+pokud ho chci zachovat
+
+↓
+
+zapsat do nového souboru
+
+\`\`\`
+
+---
+
+## 109. `continue` — přeskočení aktuálního průchodu cyklu
+
+`continue` se používá uvnitř cyklu, například `for`.
+
+Pokud se provede, Python ukončí pouze aktuální průchod cyklu a pokračuje dalším prvkem.
+
+```python
+for number in [1, 2, 3, 4]:
+    if number == 2:
+        continue
+
+    print(number)
+```
+
+Výstup:
+
+```text
+1
+3
+4
+```
+
+Praktický vzor:
+
+```python
+for fund in funds:
+    if response.status_code != 200:
+        print("CHYBA")
+        continue
+
+    print("Pokračuji ve zpracování fondu")
+```
+
+Pomůcka:
+
+```text
+continue
+→ tento průchod už dál nezpracovávej
+→ pokračuj dalším prvkem cyklu
+```
+
+Díky `continue` často není potřeba vytvářet velký blok `else`.
+
+---
+
+## 110. `try / except` — zachycení chyby
+
+`try / except` umožňuje zachytit chybu, aby program nemusel okamžitě skončit.
+
+```python
+try:
+    number = int("abc")
+
+except ValueError as error:
+    print("CHYBA:", error)
+```
+
+Princip:
+
+```text
+try
+→ zkus provést kód
+
+except
+→ pokud vznikne daný typ chyby, proveď náhradní blok
+```
+
+Za jeden `try` může následovat více `except` bloků:
+
+```python
+try:
+    ...
+
+except ValueError as error:
+    print("Chyba hodnoty:", error)
+
+except TypeError as error:
+    print("Chyba datového typu:", error)
+```
+
+Každý `except` může zachytit jiný typ chyby.
+
+`as error` uloží konkrétní chybu do proměnné `error`.
+
+```python
+str(error)
+```
+
+převede popis chyby na text.
+
+---
+
+## 111. Cesty pomocí `pathlib.Path`
+
+Moderní práce s cestami:
+
+```python
+from pathlib import Path
+```
+
+Vytvoření cesty:
+
+```python
+raw_folder = Path("data/raw/funds_prices")
+```
+
+Spojování částí cesty:
+
+```python
+file_path = raw_folder / "data.json"
+```
+
+U objektu `Path` znak `/` znamená připojení další části cesty.
+
+Vytvoření složky:
+
+```python
+raw_folder.mkdir(
+    parents=True,
+    exist_ok=True
+)
+```
+
+```text
+mkdir()
+→ vytvoří složku
+
+parents=True
+→ vytvoří i chybějící nadřazené složky
+
+exist_ok=True
+→ pokud složka už existuje, nevznikne chyba
 ```
 
 ---
 
-## 108. Shrnutí práce se soubory
+## 112. `__file__`, `.resolve()` a `.parent`
 
-### TXT
+`__file__` představuje cestu k právě spuštěnému Python souboru.
 
 ```python
-with open("employees.txt") as file:
+Path(__file__)
+```
+
+Absolutní cesta:
+
+```python
+Path(__file__).resolve()
+```
+
+`.resolve()` převede cestu na úplnou absolutní cestu.
+
+`.parent` znamená o jednu složku výš.
+
+Příklad:
+
+```python
+project_folder = (
+    Path(__file__)
+    .resolve()
+    .parent
+    .parent
+)
+```
+
+Pokud skript leží zde:
+
+```text
+project-03/
+└── python/
+    └── 02_acquire_fund_prices.py
+```
+
+pak:
+
+```text
+Path(__file__).resolve()
+→ .../project-03/python/02_acquire_fund_prices.py
+
+.parent
+→ .../project-03/python
+
+.parent.parent
+→ .../project-03
+```
+
+Výhoda:
+
+> Skript může odvodit cestu k projektu podle svého vlastního umístění a není závislý na aktuální pracovní složce terminálu.
+
+---
+
+## 113. Aktuální datum a čas — `datetime.now()`
+
+Import:
+
+```python
+from datetime import datetime
+```
+
+Aktuální datum a čas:
+
+```python
+download_time = datetime.now()
+```
+
+Pro převod datetime na text použijeme `strftime()`:
+
+```python
+timestamp = download_time.strftime(
+    "%Y-%m-%d_%H%M%S"
+)
+```
+
+Výsledek například:
+
+```text
+2026-09-28_221543
+```
+
+Časté značky:
+
+```text
+%Y → rok se 4 číslicemi
+%y → rok se 2 číslicemi
+%m → měsíc
+%d → den
+%H → hodina 00–23
+%M → minuta
+%S → sekunda
+```
+
+Pozor:
+
+```text
+%m
+→ měsíc
+
+%M
+→ minuta
+```
+
+Velká a malá písmena mají ve `strftime()` různý význam.
+
+---
+
+## 114. Režimy `open()` — `"r"`, `"w"` a `"a"`
+
+Základní režimy:
+
+```text
+"r" → read   → čtení
+"w" → write  → zápis / přepsání
+"a" → append → přidání na konec souboru
+```
+
+Čtení:
+
+```python
+with open("data.txt", "r") as file:
     content = file.read()
 ```
 
-### TXT jako list řádků
+Zápis:
 
 ```python
-with open("employees.txt") as file:
-    content = file.read().splitlines()
+with open("data.txt", "w") as file:
+    file.write("Nový obsah")
 ```
 
-### CSV jako listy
+Přidání na konec:
 
 ```python
-with open("employees.csv") as file:
-    reader = csv.reader(file)
+with open("data.txt", "a") as file:
+    file.write("Další řádek")
 ```
 
-### CSV jako dictionaries
+UTF-8 encoding:
 
 ```python
-with open("employees.csv") as file:
-    reader = csv.DictReader(file)
+with open(
+    "data.json",
+    "w",
+    encoding="utf-8"
+) as file:
+    ...
 ```
 
-### Převod mzdy z CSV
+---
+
+## 115. `json.dump()` a čitelné znaky
+
+Základní zápis:
 
 ```python
-employee["salary"] = int(employee["salary"])
+json.dump(
+    data,
+    file
+)
 ```
 
-### Zápis CSV
+Formátovaný zápis:
 
 ```python
-with open("output.csv", "w", newline="") as file:
-    writer = csv.DictWriter(
-        file,
-        fieldnames=["name", "department", "salary"]
-    )
-
-    writer.writeheader()
-    writer.writerows(data)
+json.dump(
+    data,
+    file,
+    indent=2
+)
 ```
 
-### Načtení JSON
+Čitelné znaky mimo ASCII:
 
 ```python
-with open("employees.json") as file:
-    employees = json.load(file)
+json.dump(
+    data,
+    file,
+    ensure_ascii=False,
+    indent=2
+)
 ```
-
-### Zápis JSON
-
-```python
-with open("output.json", "w") as file:
-    json.dump(employees, file, indent=4)
-```
-
-Nejdůležitější princip:
 
 ```text
-soubor
-↓
-načíst
-↓
-pracovat s daty v Pythonu
-↓
-výsledek
-↓
-pokud ho chci zachovat
-↓
-zapsat do nového souboru
+data
+→ co ukládáme
+
+file
+→ kam ukládáme
+
+indent=2
+→ odsazení JSONu
+
+ensure_ascii=False
+→ znaky jako Č, Š, ý zůstanou čitelné
+```
+
+Pomůcka:
+
+```text
+json.load()
+→ JSON soubor → Python
+
+json.dump()
+→ Python → JSON soubor
 ```
